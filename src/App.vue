@@ -5,26 +5,29 @@
         <router-link to="/" exact>
           <img class="logo" src="~public/logo-48.png" alt="logo">
         </router-link>
-        <router-link to="/job" class="help">help</router-link>
+        <a href="https://github.com/feaswcy/windmill" target="_blank" class="help">帮助</a>
       </nav>
     </header>
     <aside>
-        <div class="">
-            <i class="iconfont">&#xe600;</i>
-          <router-link to="/system">system</router-link>
-        </div>
-        <div class="">
-            <i class="iconfont">&#xe62c;</i>
-            <router-link to="/windmill">windmill</router-link>
-        </div>
-        <div class="">
-            <i class="iconfont">&#xe631;</i>
-          <router-link to="/alarm">alarm</router-link>
-        </div>
-        <div class="nav">
-            <i class="iconfont">&#xe64a;</i>
-          <router-link to="/log">log</router-link>
-        </div>
+          <router-link to="/system">
+              <i class="iconfont">&#xe600;</i>地理总览</router-link>
+
+
+            <router-link to="/windmill">
+                <i class="iconfont">&#xe62c;</i>
+                风场信息</router-link>
+
+            <router-link to="/project">
+                <i class="iconfont">&#xe83d;</i>
+                风机数据</router-link>
+
+            <router-link to="/graph">
+                <i class="iconfont">&#xe66c;</i>
+                实时图表</router-link>
+
+          <router-link to="/alarm"><i class="iconfont">&#xe631;</i>
+              报警信息</router-link>
+        <router-link to="/log">  <i class="iconfont">&#xe64a;</i>操作记录</router-link>
     </aside>
     <transition name="fade" mode="out-in">
       <router-view class="view"></router-view>
@@ -33,34 +36,18 @@
 </template>
 
 <script>
-    import $ from 'jquery'
 
-    console.log($);
-//    let domain = 'http://10.3.29.9/';
-//
-//    $.ajax({
-//        url:domain+'WaWebService/JSON/NodeList/WPMSServer',
-//        type:'get',
-//        beforeSend: function(request) {
-//            request.setRequestHeader("Authorization", "Basic YWRtaW46YWRtaW4=");
-//        },
-////            data:{}
-//        success:function(data){
-//            console.log(data);
-//        }
-//    });
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-
-@font-face {
+    @font-face {
         font-family: 'iconfont';  /* project id 287825 */
-        src: url('//at.alicdn.com/t/font_vbcme0myccot7qfr.eot');
-        src: url('//at.alicdn.com/t/font_vbcme0myccot7qfr.eot?#iefix') format('embedded-opentype'),
-                url('//at.alicdn.com/t/font_vbcme0myccot7qfr.woff') format('woff'),
-                url('//at.alicdn.com/t/font_vbcme0myccot7qfr.ttf') format('truetype'),
-                url('//at.alicdn.com/t/font_vbcme0myccot7qfr.svg#iconfont') format('svg');
-}
+        src: url('//at.alicdn.com/t/font_0jbu448l31eb3xr.eot');
+        src: url('//at.alicdn.com/t/font_0jbu448l31eb3xr.eot?#iefix') format('embedded-opentype'),
+                url('//at.alicdn.com/t/font_0jbu448l31eb3xr.woff') format('woff'),
+                url('//at.alicdn.com/t/font_0jbu448l31eb3xr.ttf') format('truetype'),
+                url('//at.alicdn.com/t/font_0jbu448l31eb3xr.svg#iconfont') format('svg');
+    }
     .iconfont{
         color:#fff;
         font-family:"iconfont" !important;
@@ -78,6 +65,7 @@ body
   padding-left 80px
   color #34495e
   overflow-y scroll
+
 a
   color #34495e
   text-decoration none
@@ -89,18 +77,16 @@ aside
   bottom 0
   overflow-y scroll
   background #000
-  div{
-      height 70px
-      i.iconfont{
-          font-size: 32px;
-          color: #eee;
-          margin: 0 auto 5px;
-          display block
-          text-align center
-      }
-
-    }
   a
+    i.iconfont{
+      font-size: 32px;
+      color: #eee;
+      margin: 0 auto 5px;
+      display block
+      text-align center
+    }
+    height 80px
+    padding-top 8px
     color #fff
     display block
     vertical-align middle
@@ -122,10 +108,13 @@ aside
   top 0
   left 0
   right 0
+  .logo{
+      font-size:50px;
+  }
   .inner
     max-width 800px
     box-sizing border-box
-    margin 0px auto
+    margin 0 auto
     padding 15px 5px
   .help
     float right
@@ -161,9 +150,91 @@ aside
 
 .view
   max-width 1000px
-  margin 0 auto
+  margin 100px 0 0 100px
   position relative
+/*! minireset.css v0.0.2 | MIT License | github.com/jgthms/minireset.css */
+html,
+body,
+p,
+ol,
+ul,
+li,
+dl,
+dt,
+dd,
+blockquote,
+figure,
+fieldset,
+legend,
+textarea,
+pre,
+iframe,
+hr,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+    padding: 0;
+}
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-size: 100%;
+    font-weight: normal;
+}
+
+ul {
+    list-style: none;
+}
+
+button,
+input,
+select,
+textarea {
+    margin: 0;
+}
+
+html {
+    box-sizing: border-box;
+}
+
+* {
+    box-sizing: inherit;
+}
+*:before, *:after {
+    box-sizing: inherit;
+}
+
+img,
+embed,
+object,
+audio,
+video {
+    height: auto;
+    max-width: 100%;
+}
+
+iframe {
+    border: 0;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+td,
+th {
+    padding: 0;
+    text-align: left;
+}
 /*.fade-enter-active, .fade-leave-active*/
   /*transition all .2s ease*/
 

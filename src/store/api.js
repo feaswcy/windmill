@@ -1,4 +1,5 @@
 // this is aliased in webpack config based on server/client build
+// 实际import的是create-api-client.js或者create-api-server.js
 import api from 'create-api'
 
 // warm the front page cache every 15 min

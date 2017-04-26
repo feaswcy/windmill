@@ -5,6 +5,9 @@ import router from './router'
 import { sync } from 'vuex-router-sync'
 import * as filters from './filters'
 
+import axios from 'axios'
+Vue.prototype.$http = axios
+
 // sync the router with the vuex store.
 // this registers `store.state.route`
 sync(store, router)
@@ -20,13 +23,7 @@ Object.keys(filters).forEach(key => {
 const app = new Vue({
   router,
   store,
-  ...App,
-  http: {
-      root: '/root',
-      headers: {
-          Authorization: 'Basic YWRtaW46YWRtaW4'
-      }
-  }
+  ...App
 })
 
 // expose the app, the router and the store.
