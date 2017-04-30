@@ -1,6 +1,5 @@
 <template>
     <div id="windmill-list">
-
         <ul>
             <li>
                 <i class="iconfont">&#xe8c9;</i>
@@ -87,7 +86,28 @@
 </template>
 
 <script>
-
+//    export default {
+//        name: 'item-view',
+//        components: { Spinner, Comment },
+//        data () {
+//            return {
+//                loading: true
+//            }
+//        },
+//        computed: {
+//            item () {
+//                return this.$store.state.items[this.$route.params.id]
+//            }
+//        },
+//        // on the server, only fetch the item itself
+//        preFetch: fetchItem,
+//        // on the client, fetch everything
+//        beforeMount () {
+//            fetchItemAndComments(this.$store).then(() => {
+//                this.loading = false
+//            })
+//        }
+//    }
 </script>
 
 
