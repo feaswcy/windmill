@@ -10,9 +10,7 @@
     </header>
     <aside>
           <router-link to="/system">
-              <i class="iconfont">&#xe600;</i>地理总览</router-link>
-
-
+              <i class="iconfont">&#xe600;</i>系统信息</router-link>
             <router-link to="/windmill">
                 <i class="iconfont">&#xe62c;</i>
                 风场信息</router-link>

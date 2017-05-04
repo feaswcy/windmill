@@ -6,7 +6,7 @@ import { sync } from 'vuex-router-sync'
 import * as filters from './filters'
 
 import axios from 'axios'
-Vue.prototype.$http = axios
+  Vue.prototype.$http = axios
 
 // sync the router with the vuex store.
 // this registers `store.state.route`

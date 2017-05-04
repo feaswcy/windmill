@@ -39,7 +39,52 @@
     </div>
 </template>
 <script>
+//
 
+export default{
+    data (){
+        return {
+            msg:"123",
+            info:{
+                "servertime":new Date(),
+                "user":'',
+                "ver":'',
+                "clientnum":''
+            }
+        }
+    },
+    mounted (){
+        //获得tag list :WaWebService/Json/TagList/WPMSServer/Node/1/Device01
+        //web access 获取tag value需要用post，tag name作为参数
+
+        const domain = 'http://192.168.191.2';
+        const projectname = 'WPMSServer';
+        let verurl = domain+'/WaWebService/Json/GetVersion/'+projectname;
+        let userurl = domain+'/WaWebService/JSON/GetUserInfo/'+projectname;
+        let me = this;
+
+        function getuser() {
+            return me.$http({
+                url: userurl,
+                method: 'get',
+                headers: {"Authorization":"Basic YWRtaW46"},
+            });
+        }
+        function getver() {
+            return me.$http({
+                url: verurl,
+                method: 'get',
+                headers: {"Authorization":"Basic YWRtaW46"},
+            });
+        }
+
+        me.$http.all([getuser(), getver()])
+            .then(me.$http.spread(function (userre, verre) {
+                me.info.user = userre.data.UserInfo.UserName;
+                me.info.ver = verre.data.Version;
+            }));
+    }
+}
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
     #table-container{

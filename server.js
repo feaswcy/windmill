@@ -63,6 +63,7 @@ app.use('/dist', serve('./dist'))
 app.use('/public', serve('./public'))
 
 app.get('*', (req, res) => {
+
   if (!renderer) {
     return res.end('waiting for compilation... refresh in a moment.')
   }

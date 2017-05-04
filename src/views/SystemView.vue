@@ -1,7 +1,15 @@
 <template>
     <div>
-        <h3>风场信息简介</h3>
-        <div id="map-container"  :style="{width:'800px',height:'600px'}"></div>
+        <h3>系统信息简介</h3>
+        <div id="system-container"  :style="{width:'800px',height:'600px'}">
+            <ul>
+                <li><span>系统时间:</span>{{info.servertime}}</li>
+                <li><span>当前用户:</span>{{info.user}}</li>
+                <li><span>当前版本:</span>{{info.ver}}</li>
+                <li><span>客户端最大连接数:</span>{{info.clientnum}}</li>
+            </ul>
+
+        </div>
     </div>
 </template>
 
@@ -9,42 +17,49 @@
     export default{
         data (){
             return {
-                msg:"123"
+                msg:"123",
+                info:{
+                    "servertime":new Date(),
+                    "user":'',
+                    "ver":'',
+                    "clientnum":''
+                }
             }
         },
         mounted (){
-            function init() {
-                let map = new AMap.Map('container',{
-                    resizeEnable: true,
-                    zoom: 10,
-                    center: [116.480983, 40.0958],
-                    mapStyle:'normal',
-                    feature:['road']
+            const domain = 'http://192.168.191.2';
+            const projectname = 'WPMSServer';
+            let verurl = domain+'/WaWebService/Json/GetVersion/'+projectname;
+            let userurl = domain+'/WaWebService/JSON/GetUserInfo/'+projectname;
+            let me = this;
+
+            function getuser() {
+                return me.$http({
+                    url: userurl,
+                    method: 'get',
+                    headers: {"Authorization":"Basic YWRtaW46"},
                 });
-                let marker = new AMap.Marker({
-                    position: [116.480983, 39.989628],//marker所在的位置
-                    map:map//创建时直接赋予map属性
-                });
-                //也可以在创建完成后通过setMap方法执行地图对象
-                marker.setMap(map);
             }
-            var url = 'http://webapi.amap.com/maps?v=1.3&amp;key=7684f99ab620a58b487271d46df45644&callback=init'
-            this.$http.get(url).then(function(data){
-                console.log('data is:')
-                console.log(data);
+            function getver() {
+                return me.$http({
+                    url: verurl,
+                    method: 'get',
+                    headers: {"Authorization":"Basic YWRtaW46"},
+                });
+            }
 
-            },function(response){
-                console.log('response is:')
-                console.log(response);
-
-            });
+            me.$http.all([getuser(), getver()])
+                .then(me.$http.spread(function (userre, verre) {
+                    me.info.user = userre.data.UserInfo.UserName;
+                    me.info.ver = verre.data.Version;
+                }));
         }
     }
 </script>
 
 
 <style lang="stylus" rel="stylesheet/stylus">
-#main{
+#system-container{
     /*padding:10px 20px;*/
     img{
         width 100%;
