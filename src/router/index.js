@@ -3,10 +3,6 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
-import { createListView } from '../views/CreateListView'
-import ItemView from '../views/ItemView.vue'
-import UserView from '../views/UserView.vue'
-
 import SystemView from '../views/SystemView.vue'
 import WindmillView from  '../views/WindmillView.vue'
 import GraphView from '../views/GraphView.vue'

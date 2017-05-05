@@ -7,6 +7,8 @@ const serialize = require('serialize-javascript')
 const resolve = file => path.resolve(__dirname, file)
 
 const isProd = process.env.NODE_ENV === 'production'
+
+
 const serverInfo =
   `express/${require('express/package.json').version} ` +
   `vue-server-renderer/${require('vue-server-renderer/package.json').version}`
@@ -67,13 +69,11 @@ app.get('*', (req, res) => {
   if (!renderer) {
     return res.end('waiting for compilation... refresh in a moment.')
   }
-  req.headers['Authorization'] = 'Your Cookie'
 
-  res.setHeader("Content-Type", "Basic YWRtaW46YWRtaW4")
-    // WWW-Authenticate:Basic realm="WebAccess WebService"
+  res.setHeader("Authorization", "Basic YWRtaW46YWRtaW4")
+  // WWW-Authenticate:Basic realm="WebAccess WebService"
   // res.setHeader("Authorization", "Basic YWRtaW46YWRtaW4=")
   res.setHeader("Server", serverInfo)
-    // Authorization: Basic YWRtaW46YWRtaW4=
 
   var s = Date.now()
   const context = { url: req.url }

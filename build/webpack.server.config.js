@@ -1,5 +1,6 @@
 const webpack = require('webpack')
 const base = require('./webpack.base.config')
+console.log('running webpack server');
 
 module.exports = Object.assign({}, base, {
   target: 'node',

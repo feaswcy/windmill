@@ -1,6 +1,7 @@
 const path = require('path')
 const vueConfig = require('./vue-loader.config')
 
+console.log('running webpack base')
 module.exports = {
   devtool: '#source-map',
   entry: {

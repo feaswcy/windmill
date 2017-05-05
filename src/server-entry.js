@@ -1,4 +1,4 @@
-import { app, router, store } from './app'
+import { app, router } from './app'
 
 const isDev = process.env.NODE_ENV !== 'production'
 
@@ -35,7 +35,8 @@ export default context => {
     // inline the state in the HTML response. This allows the client-side
     // store to pick-up the server-side state without having to duplicate
     // the initial data fetching on the client.
-    context.initialState = store.state
+
+    // context.initialState = store.state
     return app
   })
 }
