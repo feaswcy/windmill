@@ -1,84 +1,15 @@
 <template>
     <div id="windmill-list">
         <ul>
-            <li>
+            <li v-for="(item, index) in items" v-on:click="showdetail">
                 <i class="iconfont">&#xe8c9;</i>
                 <div>
-                    <p>编号:<span class="num">A01</span></p>
-                    <p>状态:<span class="off">停机</span></p>
-                    <p>风速:<span>15.00</span></p>
-                    <p>功率:<span>800.00</span></p>
-                </div>
-            </li>
-            <li>
-                <i class="iconfont">&#xe8c9;</i>
-                <div>
-                    <p>编号:<span class="num">A02</span></p>
-                    <p>状态:<span class="off">停机</span></p>
-                    <p>风速:<span>15.00</span></p>
-                    <p>功率:<span>800.00</span></p>
-                </div>
-            </li>
-            <li>
-                <i class="iconfont">&#xe8c9;</i>
-                <div>
-                    <p>编号:<span class="num">A03</span></p>
-                    <p>状态:<span class="off">停机</span></p>
-                    <p>风速:<span>15.00</span></p>
-                    <p>功率:<span>800.00</span></p>
-                </div>
-            </li>
-            <li>
-                <i class="iconfont">&#xe8c9;</i>
-                <div>
-                    <p>编号:<span class="num">A04</span></p>
-                    <p>状态:<span class="off">停机</span></p>
-                    <p>风速:<span>15.00</span></p>
-                    <p>功率:<span>800.00</span></p>
-                </div>
-            </li>
-            <li>
-                <i class="iconfont">&#xe8c9;</i>
-                <div>
-                    <p>编号:<span class="num">A05</span></p>
-                    <p>状态:<span class="off">停机</span></p>
-                    <p>风速:<span>15.00</span></p>
-                    <p>功率:<span>800.00</span></p>
-                </div>
-            </li>
-            <li>
-                <i class="iconfont">&#xe8c9;</i>
-                <div>
-                    <p>编号:<span class="num">A04</span></p>
-                    <p>状态:<span class="off">停机</span></p>
-                    <p>风速:<span>15.00</span></p>
-                    <p>功率:<span>800.00</span></p>
-                </div>
-            </li>
-            <li>
-                <i class="iconfont">&#xe8c9;</i>
-                <div>
-                    <p>编号:<span class="num">A05</span></p>
-                    <p>状态:<span class="off">停机</span></p>
-                    <p>风速:<span>15.00</span></p>
-                    <p>功率:<span>800.00</span></p>
-                </div>
-            </li><li>
-            <i class="iconfont">&#xe8c9;</i>
-            <div>
-                <p>编号:<span class="num">A04</span></p>
-                <p>状态:<span class="off">停机</span></p>
-                <p>风速:<span>15.00</span></p>
-                <p>功率:<span>800.00</span></p>
-            </div>
-        </li>
-            <li>
-                <i class="iconfont">&#xe8c9;</i>
-                <div>
-                    <p>编号:<span class="num">A05</span></p>
-                    <p>状态:<span class="off">停机</span></p>
-                    <p>风速:<span>15.00</span></p>
-                    <p>功率:<span>800.00</span></p>
+                    <p>编号:<span class="num">{{item.num}}</span></p>
+                    <p>状态:
+                        <span v-if="item.status==0" class="off">停机</span>
+                        <span v-if="item.status==1" class="on">启动</span>
+                    <p>风速:<span>{{item.speed}}</span></p>
+                    <p>功率:<span>{{item.power}}</span></p>
                 </div>
             </li>
         </ul>
@@ -86,7 +17,67 @@
 </template>
 
 <script>
+    export default{
+        data (){
+            return {
+                items:[
+                    {
+                       num:'A01',
+                       status:"0",
+                       speed:"15.00",
+                       power:'800.00'
+                    },{
+                        num:'A01',
+                        status:"0",
+                        speed:"15.00",
+                        power:'800.00'
+                    },{
+                        num:'A01',
+                        status:"1",
+                        speed:"15.00",
+                        power:'800.00'
+                    },{
+                        num:'A01',
+                        status:"1",
+                        speed:"15.00",
+                        power:'800.00'
+                    },{
+                        num:'A01',
+                        status:"1",
+                        speed:"15.00",
+                        power:'800.00'
+                    },{
+                        num:'A01',
+                        status:"1",
+                        speed:"15.00",
+                        power:'800.00'
+                    },{
+                        num:'A01',
+                        status:"1",
+                        speed:"15.00",
+                        power:'800.00'
+                    }
 
+                ],
+            }
+        },
+        methods: {
+            showdetail: function () {
+                alert(1);
+            }
+        },
+        mounted (){
+            let es = new EventSource("sse");
+
+            es.addEventListener("message", function(e){
+                alert('sse message');
+                console.log(e.data.module2);
+                me.info.user=e.data.module2.user;
+                me.info.ver =e.data.module2.version;
+                me.info.clientnum =e.data.module2.clientnum;
+            },false);
+        }
+    }
 </script>
 
 
@@ -116,6 +107,9 @@
                     }
                     span.off{
                         color:red
+                    }
+                    span.on{
+                        color:green;
                     }
                     span.num{
                         color:blue

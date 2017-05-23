@@ -6,6 +6,12 @@ const compression = require('compression')
 const serialize = require('serialize-javascript')
 const resolve = file => path.resolve(__dirname, file)
 
+const devserver = require('./build/setup-dev-server')
+
+
+
+
+
 const isProd = process.env.NODE_ENV === 'production'
 
 
@@ -24,7 +30,7 @@ if (isProd) {
 } else {
   // in development: setup the dev server with watch and hot-reload,
   // and update renderer / index HTML on file change.
-  require('./build/setup-dev-server')(app, {
+    devserver(app, {
     bundleUpdated: bundle => {
       renderer = createRenderer(bundle)
     },
@@ -64,55 +70,69 @@ app.use('/manifest.json', serve('./manifest.json'))
 app.use('/dist', serve('./dist'))
 app.use('/public', serve('./public'))
 
+
+
 app.get('*', (req, res) => {
+    if(req.url !="/sse"){
+      if (!renderer) {
+          return res.end('waiting for compilation... refresh in a moment.')
+      }
+      res.setHeader("Server", serverInfo)
+      var s = Date.now()
+      const context = { url: req.url }
 
-  if (!renderer) {
-    return res.end('waiting for compilation... refresh in a moment.')
-  }
+      console.log(context);
 
-  res.setHeader("Authorization", "Basic YWRtaW46YWRtaW4")
-  // WWW-Authenticate:Basic realm="WebAccess WebService"
-  // res.setHeader("Authorization", "Basic YWRtaW46YWRtaW4=")
-  res.setHeader("Server", serverInfo)
+      const renderStream = renderer.renderToStream(context)
+      renderStream.once('data', () => {
+          res.write(indexHTML.head)
+      })
+      renderStream.on('data', chunk => {
+          res.write(chunk)
+      })
+      renderStream.on('end', () => {
+          // embed initial store state
+          if (context.initialState) {
+              res.write(
+                  `<script>window.__INITIAL_STATE__=${
+                      serialize(context.initialState, { isJSON: true })
+                      }</script>`
+              )
+          }
+          res.end(indexHTML.tail)
+          console.log(`whole request: ${Date.now() - s}ms`)
+      })
+      renderStream.on('error', err => {
+          if (err && err.code === '404') {
+              res.status(404).end('404 | Page Not Found')
+              return
+          }
+          res.status(500).end('Internal Error 500')
+          console.error(`error during render : ${req.url}`)
+          console.error(err)
+      })
 
-  var s = Date.now()
-  const context = { url: req.url }
-  const renderStream = renderer.renderToStream(context)
-
-  renderStream.once('data', () => {
-    res.write(indexHTML.head)
-  })
-
-  renderStream.on('data', chunk => {
-    res.write(chunk)
-  })
-
-  renderStream.on('end', () => {
-    // embed initial store state
-    if (context.initialState) {
-      res.write(
-        `<script>window.__INITIAL_STATE__=${
-          serialize(context.initialState, { isJSON: true })
-        }</script>`
-      )
+      return;
     }
-    res.end(indexHTML.tail)
-    console.log(`whole request: ${Date.now() - s}ms`)
-  })
 
-  renderStream.on('error', err => {
-    if (err && err.code === '404') {
-      res.status(404).end('404 | Page Not Found')
-      return
-    }
-    // Render Error Page or Redirect
-    res.status(500).end('Internal Error 500')
-    console.error(`error during render : ${req.url}`)
-    console.error(err)
-  })
+    // res.writeHead(200, { "Content-Type": "text/event-stream" });
+    // var timer = setInterval(function(){
+    //     var content = "data:" + new Date().toISOString() + "\n\n";
+    //     var b = res.write(content);
+    //     if(!b)console.log("Data got queued in memory (content=" + content + ")");
+    //     else console.log("Flushed! (content=" + content + ")");
+    // },3000);
+    // req.connection.on("close", function(){
+    //     res.end();
+    //     clearInterval(timer);
+    //     console.log("Client closed connection. Aborting.");
+    // });
+
 })
 
 const port = process.env.PORT || 8086
 app.listen(port, () => {
   console.log(`server started at localhost:${port}`)
-})
+});
+
+

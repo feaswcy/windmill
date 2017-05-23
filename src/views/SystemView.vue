@@ -1,15 +1,20 @@
 <template>
-    <div>
-        <h3>系统信息简介</h3>
-        <div id="system-container"  :style="{width:'800px',height:'600px'}">
-            <ul>
-                <li><span>系统时间:</span>{{info.servertime}}</li>
-                <li><span>当前用户:</span>{{info.user}}</li>
-                <li><span>当前版本:</span>{{info.ver}}</li>
-                <li><span>客户端最大连接数:</span>{{info.clientnum}}</li>
-            </ul>
+    <div id="system-container">
+        <div class="title-container">
 
+            <h3>欢迎来到毕业设计-风电监控系统</h3>
+
+            <div class="system-info">
+                <ul>
+                    <li><span>系统时间:</span>{{info.servertime}}</li>
+                    <li><span>当前用户:</span>{{info.user}}</li>
+                    <li><span>当前版本:</span>{{info.ver}}</li>
+                    <li><span>系统最大连接数:</span>{{info.clientnum}}</li>
+                </ul>
+
+            </div>
         </div>
+
     </div>
 </template>
 
@@ -20,39 +25,24 @@
                 msg:"123",
                 info:{
                     "servertime":new Date(),
-                    "user":'',
-                    "ver":'',
-                    "clientnum":''
+                    "user":'admin',
+                    "ver":'10.0.2',
+                    "clientnum":'100'
                 }
             }
         },
         mounted (){
-            const domain = 'http://192.168.191.2';
-            const projectname = 'WPMSServer';
-            let verurl = domain+'/WaWebService/Json/GetVersion/'+projectname;
-            let userurl = domain+'/WaWebService/JSON/GetUserInfo/'+projectname;
-            let me = this;
+            console.log(1);
+            let es = new EventSource("sse");
 
-            function getuser() {
-                return me.$http({
-                    url: userurl,
-                    method: 'get',
-                    headers: {"Authorization":"Basic YWRtaW46"},
-                });
-            }
-            function getver() {
-                return me.$http({
-                    url: verurl,
-                    method: 'get',
-                    headers: {"Authorization":"Basic YWRtaW46"},
-                });
-            }
+            es.addEventListener("message", function(e){
+                alert('sse message');
+                console.log(e.data.module1);
+                me.info.user=e.data.module1.user;
+                me.info.ver =e.data.module1.version;
+                me.info.clientnum =e.data.module1.clientnum;
+            },false);
 
-            me.$http.all([getuser(), getver()])
-                .then(me.$http.spread(function (userre, verre) {
-                    me.info.user = userre.data.UserInfo.UserName;
-                    me.info.ver = verre.data.Version;
-                }));
         }
     }
 </script>
@@ -60,9 +50,35 @@
 
 <style lang="stylus" rel="stylesheet/stylus">
 #system-container{
-    /*padding:10px 20px;*/
+    max-width:100%;
+    height:600px;
+    width:100%;
+    margin 80px 0 0 70px
+    background-image url('/public/bg.jpeg')
+    background-size cover
     img{
         width 100%;
+    }
+    .title-container{
+        margin: 0 auto;
+        padding-top:200px;
+        height 400px;
+        width 600px;
+        color #fff
+        h3{
+            font-size 30px;
+        }
+        .system-info{
+            margin-top:20px;
+            ul{
+                li{
+                    margin-top:5px;
+                    span{
+                        margin-right:10px;
+                    }
+                }
+            }
+        }
     }
 }
 

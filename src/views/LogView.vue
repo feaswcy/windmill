@@ -1,6 +1,6 @@
 <template>
     <div id="log">
-       <h3>操作记录<span class="total">总数：771</span></h3>
+       <h3>操作记录<span class="total">总数：{{total}}</span></h3>
        <table>
            <thead>
                <tr>
@@ -11,17 +11,11 @@
                </tr>
            </thead>
             <tbody>
-                <tr>
+                <tr v-for="key in logdatas">
                     <td><i></i></td>
-                    <td class="wid150">2016/04/14</td>
-                    <td class="wid150">17:29:45</td>
-                    <td class="wid600">admin注销</td>
-                </tr>
-                <tr>
-                    <td><i></i></td>
-                    <td class="wid150">2016/04/14</td>
-                    <td class="wid150">17:30:21</td>
-                    <td class="wid600">admin登陆</td>
+                    <td class="wid150">{{key.time}}</td>
+                    <td class="wid150">{{key.time}}</td>
+                    <td class="wid600">{{key.action}}</td>
                 </tr>
             </tbody>
        </table>
@@ -32,44 +26,32 @@
 export default{
     data (){
         return {
-            msg:"123",
-            info:{
-                "servertime":new Date(),
-                "user":'',
-                "ver":'',
-                "clientnum":''
-            }
+            total:'771',
+            logdatas:[{
+                date:"2016/04/14",
+                time:"17:29:45",
+                action:"admin注销"
+            },{
+                date:"2016/04/14",
+                time:"17:39:45",
+                action:"admin注销"
+            },{
+                date:"2016/04/14",
+                time:"17:59:45",
+                action:"admin注销"
+            }]
         }
     },
     mounted (){
-        //http://192.168.43.174/WaWebService/Json/GetActionLog/WPMSServer/Node/0/10
+        let es = new EventSource("sse");
 
-        const domain = 'http://192.168.191.2';
-        const projectname = 'WPMSServer';
-        let verurl = domain+'/WaWebService/Json/GetVersion/'+projectname;
-        let userurl = domain+'/WaWebService/JSON/GetUserInfo/'+projectname;
-        let me = this;
-
-        function getuser() {
-            return me.$http({
-                url: userurl,
-                method: 'get',
-                headers: {"Authorization":"Basic YWRtaW46"},
-            });
-        }
-        function getver() {
-            return me.$http({
-                url: verurl,
-                method: 'get',
-                headers: {"Authorization":"Basic YWRtaW46"},
-            });
-        }
-
-        me.$http.all([getuser(), getver()])
-            .then(me.$http.spread(function (userre, verre) {
-                me.info.user = userre.data.UserInfo.UserName;
-                me.info.ver = verre.data.Version;
-            }));
+        es.addEventListener("message", function(e){
+            alert('sse message');
+            console.log(e.data.module6);
+            me.info.user=e.data.module6.user;
+            me.info.ver =e.data.module6.version;
+            me.info.clientnum =e.data.module6.clientnum;
+        },false);
     }
 }
 </script>

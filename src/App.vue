@@ -5,7 +5,7 @@
         <router-link to="/" exact>
           <img class="logo" src="~public/logo-48.png" alt="logo">
         </router-link>
-        <a href="https://github.com/feaswcy/windmill" target="_blank" class="help">帮助</a>
+        <a href="https://github.com/feaswcy/windmill" target="_blank" class="help">源代码</a>
       </nav>
     </header>
     <aside>
@@ -73,6 +73,7 @@ aside
   left 0
   top 80px
   bottom 0
+  z-index 999
   overflow-y scroll
   background #000
   a

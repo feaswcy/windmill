@@ -6,6 +6,4 @@ npm-debug.log
 test.html
 design/
 *.iml
-qa.md
-jquery.js
-interface.md
+test/

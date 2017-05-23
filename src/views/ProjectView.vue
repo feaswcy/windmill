@@ -7,82 +7,106 @@
                 <th>状态</th>
                 <th>发电量</th>
                 <th>实时风速</th>
-
                 <th>实时功率</th>
                 <th>实时无功</th>
                 <th>叶轮转速</th>
                 <th>电机转速</th>
-
                 <th>扭揽角度</th>
                 <th>变桨角度</th>
                 <th>电网频率</th>
-                <th>详情</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <th>A01</th>
-                <td class="off">停机</td>
-                <td>800.00</td>
-                <td>15.00</td>
-                <td>800.00</td>
-                <td>50.00</td>
-                <td>50.00</td>
-                <td>1000.00</td>
-                <td>1000.00</td>
-                <td>50.00</td>
-                <td>100.00</td>
-                <td class="link"><a href="javascript:;">展开</a></td>
+            <tr v-for="(item, index) in tabledata">
+                <th>{{item.num}}</th>
+                <td v-if="item.status==0" class="off">停机</td>
+                <td v-if="item.status==1" class="on">运行中</td>
+                <td>{{item.eletric}}</td>
+                <td>{{item.windspeed}}</td>
+                <td>{{item.power1}}</td>
+                <td>{{item.power2}}</td>
+                <td>{{item.speed1}}</td>
+                <td>{{item.speed2}}</td>
+                <td>{{item.angle1}}</td>
+                <td>{{item.angle2}}</td>
+                <td>{{item.frequency}}</td>
             </tr>
             </tbody>
         </table>
     </div>
 </template>
 <script>
-//
 
 export default{
     data (){
         return {
             msg:"123",
-            info:{
-                "servertime":new Date(),
-                "user":'',
-                "ver":'',
-                "clientnum":''
-            }
+            tabledata:[
+                {
+                    num:"A01",
+                    status:'1',
+                    eletric:'800',
+                    windspeed:'15',
+                    power1:'800',
+                    power2:'800',
+                    speed1:'800',
+                    speed2:'800',
+                    angle1:'800',
+                    angle2:'800',
+                    frequency:'100.00'
+                },
+                {
+                    num:"A01",
+                    status:'1',
+                    eletric:'800',
+                    windspeed:'15',
+                    power1:'800',
+                    power2:'800',
+                    speed1:'800',
+                    speed2:'800',
+                    angle1:'800',
+                    angle2:'800',
+                    frequency:'100.00'
+                },
+                {
+                    num:"A01",
+                    status:'1',
+                    eletric:'800',
+                    windspeed:'15',
+                    power1:'800',
+                    power2:'800',
+                    speed1:'800',
+                    speed2:'800',
+                    angle1:'800',
+                    angle2:'800',
+                    frequency:'100.00'
+                },
+                {
+                    num:"A01",
+                    status:'1',
+                    eletric:'800',
+                    windspeed:'15',
+                    power1:'800',
+                    power2:'800',
+                    speed1:'800',
+                    speed2:'800',
+                    angle1:'800',
+                    angle2:'800',
+                    frequency:'100.00'
+                }
+            ]
         }
     },
     mounted (){
-        //获得tag list :WaWebService/Json/TagList/WPMSServer/Node/1/Device01
-        //web access 获取tag value需要用post，tag name作为参数
+        let es = new EventSource("sse");
 
-        const domain = 'http://192.168.191.2';
-        const projectname = 'WPMSServer';
-        let verurl = domain+'/WaWebService/Json/GetVersion/'+projectname;
-        let userurl = domain+'/WaWebService/JSON/GetUserInfo/'+projectname;
-        let me = this;
-
-        function getuser() {
-            return me.$http({
-                url: userurl,
-                method: 'get',
-                headers: {"Authorization":"Basic YWRtaW46"},
-            });
-        }
-        function getver() {
-            return me.$http({
-                url: verurl,
-                method: 'get',
-                headers: {"Authorization":"Basic YWRtaW46"},
-            });
-        }
-
-        me.$http.all([getuser(), getver()])
-            .then(me.$http.spread(function (userre, verre) {
-                me.info.user = userre.data.UserInfo.UserName;
-                me.info.ver = verre.data.Version;
-            }));
+        es.addEventListener("message", function(e){
+            alert('sse message');
+            console.log(e.data.module3);
+            me.info.user=e.data.module3.user;
+            me.info.ver =e.data.module3.version;
+            me.info.clientnum =e.data.module3.clientnum;
+        },false);
     }
 }
 </script>
@@ -98,6 +122,9 @@ export default{
             }
             td.off{
                 color:red
+            }
+            td.on{
+                color:green
             }
             td.link{
                 cursor:pointer;
