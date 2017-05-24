@@ -13,7 +13,7 @@
             <tbody>
                 <tr v-for="key in logdatas">
                     <td><i></i></td>
-                    <td class="wid150">{{key.time}}</td>
+                    <td class="wid150">{{key.date}}</td>
                     <td class="wid150">{{key.time}}</td>
                     <td class="wid600">{{key.action}}</td>
                 </tr>

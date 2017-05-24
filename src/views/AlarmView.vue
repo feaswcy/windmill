@@ -1,6 +1,30 @@
 <template>
     <div id="alarm">
-        alarm view
+        <h3>报警记录<span class="total">总数：{{total}}</span></h3>
+        <table>
+            <thead>
+            <tr>
+                <th><i></i></th>
+                <th class="wid150">日期</th>
+                <th class="wid150">时间</th>
+                <th class="wid600">点名称</th>
+                <th class="wid150">报警值</th>
+                <th class="wid600">报警限定</th>
+                <th class="wid150">节点名</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="item in alarmdatas">
+                <td><i></i></td>
+                <td class="wid150">{{item.date}}</td>
+                <td class="wid150">{{item.time}}</td>
+                <td class="wid600">{{item.pointname}}</td>
+                <td class="wid150">{{item.value}}</td>
+                <td class="wid150">{{item.max}}</td>
+                <td class="wid600">{{item.nodename}}</td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </template>
 
@@ -8,13 +32,29 @@
     export default{
         data (){
             return {
-                msg:"123",
-                info:{
-                    "alarmcount":'',
-                    "user":'',
-                    "ver":'',
-                    "clientnum":''
-                }
+                total:"123",
+                alarmdatas:[{
+                    date:"2016/04/14",
+                    time:"17:29:45",
+                    pointname:"A01",
+                    value:"95",
+                    max:'90',
+                    nodename:"admin注销"
+                },{
+                    date:"2016/04/14",
+                    time:"17:39:45",
+                    pointname:"A01",
+                    value:"95",
+                    max:'90',
+                    nodename:"admin注销"
+                },{
+                    date:"2016/04/14",
+                    time:"17:59:45",
+                    pointname:"A01",
+                    value:"95",
+                    max:'90',
+                    nodename:"admin注销"
+                }]
             }
         },
         mounted (){
@@ -35,10 +75,34 @@
 <style lang="stylus" rel="stylesheet/stylus">
     #alarm{
         padding:10px 20px;
-        img{
-            width:800px;
-            display block
-            margin:0 auto;
+        h3{
+            border-bottom: 1px solid #ddd;
+            padding-bottom:5px;
+            margin-bottom:30px;
+            span.total{
+                float:right;
+            }
+        }
+        table{
+            border: 1px solid #ddd;
+            th{
+                text-align center
+                background-color #fff
+            }
+            td{
+                border: 1px solid #ddd;
+                padding: 8px;
+                text-align center;
+            }
+            span.total{
+                float:right;
+            }
+            .wid150{
+                width:150px;
+            }
+            .wid600{
+                width:600px;
+            }
         }
     }
 
