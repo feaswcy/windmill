@@ -37,10 +37,10 @@
 
             es.addEventListener("message", function(e){
                 alert('sse message');
-                console.log(e.data.module1);
-                me.info.user=e.data.module1.user;
-                me.info.ver =e.data.module1.version;
-                me.info.clientnum =e.data.module1.clientnum;
+                console.log(e.data.info);
+                me.info.user=e.data.info.user;
+                me.info.ver =e.data.info.version;
+                me.info.clientnum =e.data.info.clientnum;
             },false);
 
         }

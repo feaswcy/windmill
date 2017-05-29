@@ -19,7 +19,7 @@
                 <td class="wid150">{{item.date}}</td>
                 <td class="wid150">{{item.time}}</td>
                 <td class="wid600">{{item.pointname}}</td>
-                <td class="wid150">{{item.value}}</td>
+                <td class="wid150">{{item.describe}}</td>
                 <td class="wid150">{{item.max}}</td>
                 <td class="wid600">{{item.nodename}}</td>
             </tr>
@@ -37,23 +37,23 @@
                     date:"2016/04/14",
                     time:"17:29:45",
                     pointname:"A01",
-                    value:"95",
-                    max:'90',
-                    nodename:"admin注销"
+                    describe:"::风机无功发电量",
+                    action:'F1WIND01:R050 ->正常 (50.00)',
+                    priority:'90',
                 },{
                     date:"2016/04/14",
                     time:"17:39:45",
                     pointname:"A01",
-                    value:"95",
-                    max:'90',
-                    nodename:"admin注销"
+                    describe:"::风机无功发电量",
+                    action:'F1WIND01:R050 ->正常 (50.00)',
+                    nodename:"node"
                 },{
                     date:"2016/04/14",
                     time:"17:59:45",
                     pointname:"A01",
-                    value:"95",
-                    max:'90',
-                    nodename:"admin注销"
+                    describe:"::风机无功发电量",
+                    action:'F1WIND01:R050 ->正常 (50.00)',
+                    nodename:"::风机无功发电量"
                 }]
             }
         },

@@ -1,6 +1,10 @@
 <template>
     <div id="windmill-list">
         <ul>
+            <!--<router-link to="/windmill">-->
+            <!--<i class="iconfont">&#xe62c;</i>-->
+            <!--风场信息</router-link>-->
+
             <li v-for="(item, index) in items" v-on:click="showdetail">
                 <i class="iconfont">&#xe8c9;</i>
                 <div>
