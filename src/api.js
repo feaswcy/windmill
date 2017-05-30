@@ -1,7 +1,7 @@
 
 const axios = require('axios');
 // const serverIp = "127.0.0.1";
-const serverIp = "10.3.51.118";
+const serverIp = "10.3.16.213";
 const userName = "admin";
 const passWord = "";
 const projectname = "test";
@@ -19,7 +19,7 @@ function base64_encode(s){
 function makereq(url){
     let instance = axios.create({
         baseURL: baseUrl+url,
-        timeout: 1000,
+        timeout: 5000,
         // headers: {'Authorization': 'Basic'+base64_encode(userName+":"+passWord)}
         headers: {"Authorization":"Basic YWRtaW46"},
     });
@@ -39,133 +39,95 @@ function makereq(url){
 
 
 module.exports={
-    //数据集合
-    init:function(){
-        this.getinfo();
-        this.getrecord();
-        this.getvalue();
-    },
-    data:{
-        info:'',
-        paramdata:'',
-        action:'',
-        alarm:'',
-
-    },
     //获得系统信息
-    getinfo:function(){
-        let me =this;
+    getinfo:function(cb){
         axios.all([makereq('ServerTime'),
             makereq('GetVersion/'+projectname),
             makereq('GetUserInfo/'+projectname),
             makereq('GetClientLimit/'+projectname)]
-        ).then(axios.spread(function (data1, data2,data3,data4) {
-            let data = {
-                servertime:data1.data.Date+data1.data.Time,
-                user: data2.data.Version,
-                version:data3.data.UserInfo.UserName,
-                clientnum:data4.data.LimitCount
-            };
-            me.data.info = data;
-        }));
+        ).then(axios.spread(cb));
     },
-
     //获得报警和登陆信息
-    getrecord:function(){
-        let me = this;
-        axios.all([makereq('GetAlarmLog/'+projectname+'/'+nodename+'/0/10'),
-            makereq('GetActionLog/'+projectname+'/'+nodename+'/0/10')]
-        ).then(axios.spread(function (data1, data2) {
-            let res = {
-                alarm:{
-                    count:data1.data.Result.Total,
-                    logs:function(){
-                        let arr = data1.data.AlarmLogs;
-                        let res = [];
-                        let obj ={};
-                        for(let i=0;i<arr.length;i++){
-                            obj.date=arr[i].Time.split('')[0];
-                            obj.time=arr[i].Time.split('')[1];
-                            obj.pointname=arr[i].TagName;
-                            obj.describe=arr[i].Description;
-                            obj.action=arr[i].Action;
-                            obj.priority=arr[i].Priority;
-                            res.push(obj);
-                        }
-                        return res;
-                    }()
-                },
-                action:{
-                    count:data2.data.Result.Total,
-                    logs:function(){
-                        let arr = data2.data.AlarmLogs;
-                        let res = [];
-                        let obj ={};
-                        for(let i=0;i<arr.length;i++){
-                            obj.date=arr[i].Time.split('')[0];
-                            obj.time=arr[i].Time.split('')[1];
-                            obj.pointname=arr[i].TagName;
-                            obj.describe=arr[i].Description;
-                            obj.action=arr[i].Action;
-                            obj.priority=arr[i].Priority;
-                            res.push(obj);
-                        }
-                        return res;
-                    }()
-                }
-            };
-            me.data.alarm = res.alarm;
-            me.data.action = res.action;
-        }));
+    getalarm:function (cb) {
+        makereq('GetAlarmLog/'+projectname+'/'+nodename+'/0/10').then(cb);
     },
-    //获得所有风机的参数信息
-    getvalue:function(){
-        let me =this;
+    getlog:function(cb){
+        makereq('GetActionLog/'+projectname+'/'+nodename+'/0/10').then(cb);
+    },
 
+    //获得所有风机的参数信息
+    getvalue:function(type,successcb,errorcb){
         let paramdata = [];
-        for(let i= 1;i<=total;i++){
-            paramdata.push({
-                id:i,
-                name:"A0"+i,
-                status:{
-                    pointname:'F1WIND0'+i+':R036',
-                    value:''
-                },
-                windspeed:{
-                    pointname:'F1WIND0'+i+':R130',
-                    value:''
-                },
-                power1:{
-                    pointname:'F1WIND0'+i+':RO31',
-                    value:''
-                },
-                power2:{
-                    pointname:'F1WIND0'+i+':RO32',
-                    value:''
-                },
-                speed1:{
-                    pointname:'F1WIND0'+i+':R053',
-                    value:''
-                },
-                speed2:{
-                    pointname:'F1WIND0'+i+':R052',
-                    value:''
-                },
-                angle:{
-                    pointname:'F1WIND0'+i+':R137',
-                    value:''
-                },
-                frequency:{
-                    pointname:'F1WIND0'+i+':R030',
-                    value:''
-                }
-            })
+
+        if(type==1){
+            //风机信息 + 趋势图
+            for(let i= 0;i<total;i++){
+                let index=i+1;
+                paramdata.push({
+                    id:i,
+                    name:"A0"+index,
+                    status:{
+                        pointname:'F1WIND0'+index+':R036',
+                        value:''
+                    },
+                    windspeed:{
+                        pointname:'F1WIND0'+index+':R130',
+                        value:''
+                    },
+                    power1:{
+                        pointname:'F1WIND0'+index+':RO31',
+                        value:''
+                    }
+                })
+            }
+        }
+        else if(type==2){
+            //风机数据详细表格
+            for(let i= 0;i<total;i++){
+                let index=i+1;
+                paramdata.push({
+                    id:i,
+                    name:"A0"+index,
+                    status:{
+                        pointname:'F1WIND0'+index+':R036',
+                        value:''
+                    },
+                    windspeed:{
+                        pointname:'F1WIND0'+index+':R130',
+                        value:''
+                    },
+                    power1:{
+                        pointname:'F1WIND0'+index+':RO31',
+                        value:''
+                    },
+                    power2:{
+                        pointname:'F1WIND0'+index+':RO32',
+                        value:''
+                    },
+                    speed1:{
+                        pointname:'F1WIND0'+index+':R053',
+                        value:''
+                    },
+                    speed2:{
+                        pointname:'F1WIND0'+index+':R052',
+                        value:''
+                    },
+                    angle:{
+                        pointname:'F1WIND0'+index+':R137',
+                        value:''
+                    },
+                    frequency:{
+                        pointname:'F1WIND0'+index+':R030',
+                        value:''
+                    }
+                })
+            }
         }
         let tagnamelist = function(){
             let arr2={
                 Tags:[]
             };
-            for(var i=1;i<=paramdata.length;i++){
+            for(let i=0;i<paramdata.length;i++){
                 //遍历每个风机对象
                 let item = paramdata[i];
                 for(let key in item){
@@ -187,17 +149,11 @@ module.exports={
             dataType:'json',
             headers: {"Authorization":"Basic YWRtaW46"},
         }).then(function(response){
-            me.data.paramdata = parseresult(paramdata,response.data.Values);
+            let res = [];
+            let valuelist = response.data.Values;
 
-        }).catch(function(error){
-            console.log("msg:\n"+error);
-        });
-
-        //此函数返回上面定义结构的风机data
-        function parseresult(windmillarr,valuelist){
-            let arr = [];
-            for(let j=0;j<windmillarr.length;j++){
-                let item = windmillarr[j];
+            for(let j=0;j<paramdata.length;j++){
+                let item = paramdata[j];
 
                 for(let key in item){
                     for(let i=0;i<valuelist.length;i++){
@@ -206,10 +162,13 @@ module.exports={
                         }
                     }
                 }
-                arr.push(item);
+                res.push(item);
             }
-            return arr;
-        }
+            successcb(res);
+        }).catch(function(error){
+            console.log("msg:\n"+error);
+        });
+
     }
 
 }

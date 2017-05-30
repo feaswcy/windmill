@@ -8,9 +8,9 @@
                 <th class="wid150">日期</th>
                 <th class="wid150">时间</th>
                 <th class="wid600">点名称</th>
-                <th class="wid150">报警值</th>
-                <th class="wid600">报警限定</th>
-                <th class="wid150">节点名</th>
+                <th class="wid150">描述</th>
+                <th class="wid600">优先级</th>
+                <th class="wid150">详情</th>
             </tr>
             </thead>
             <tbody>
@@ -20,8 +20,8 @@
                 <td class="wid150">{{item.time}}</td>
                 <td class="wid600">{{item.pointname}}</td>
                 <td class="wid150">{{item.describe}}</td>
-                <td class="wid150">{{item.max}}</td>
-                <td class="wid600">{{item.nodename}}</td>
+                <td class="wid150">{{item.priority}}</td>
+                <td class="wid600">{{item.action}}</td>
             </tr>
             </tbody>
         </table>
@@ -29,6 +29,8 @@
 </template>
 
 <script>
+    import api from "../api";
+
     export default{
         data (){
             return {
@@ -58,16 +60,34 @@
             }
         },
         mounted (){
-            let es = new EventSource("sse");
-
-            es.addEventListener("message", function(e){
-//                alert('sse message');
-                console.log(e.data.module5);
-                me.info.user=e.data.module5.user;
-                me.info.ver =e.data.module5.version;
-                me.info.clientnum =e.data.module5.clientnum;
-            },false);
+            let me =this;
+            api.getalarm(function(data){
+                let arr2 = data.data.AlarmLogs;
+                let res = [];
+                console.log(data);
+                for(let i=0;i<arr2.length;i++){
+                    let obj = {};
+                    obj.date=arr2[i].Time.split(/\s/)[0];
+                    obj.time=arr2[i].Time.split(/\s/)[1];
+                    obj.pointname=arr2[i].TagName;
+                    obj.describe=arr2[i].Description;
+                    obj.action=arr2[i].Action;
+                    obj.priority=arr2[i].Priority;
+                    res.push(obj);
+                }
+                me.alarmdatas = res;
+                me.total = data.data.Result.Total;
+            })
         }
+//            let es = new EventSource("sse");
+//
+//            es.addEventListener("message", function(e){
+////                alert('sse message');
+//                console.log(e.data.module5);
+//                me.info.user=e.data.module5.user;
+//                me.info.ver =e.data.module5.version;
+//                me.info.clientnum =e.data.module5.clientnum;
+//            },false);
     }
 </script>
 
