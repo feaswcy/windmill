@@ -4,7 +4,7 @@
 
 <p align="center">
   <a href="https://vue-hn.now.sh" target="_blank">
-    <img src="https://cloud.githubusercontent.com/assets/499550/17546273/5aabc5fc-5eaf-11e6-8d6a-ad00937e8bd6.png" width="700px">
+    <img width="973" alt="screen shot 2016-08-11 at 6 06 57 pm" src="https://github.com/feaswcy/windmill/blob/dev/thumb.png" width="700px">
     <br>
     图示
   </a>
@@ -25,7 +25,7 @@
 
 ## Architecture Overview
 
-<img width="973" alt="screen shot 2016-08-11 at 6 06 57 pm" src="https://github.com/feaswcy/windmill/blob/dev/thumb.png">
+<img width="973" alt="screen shot 2016-08-11 at 6 06 57 pm" src="https://cloud.githubusercontent.com/assets/499550/17607895/786a415a-5fee-11e6-9c11-45a2cfdf085c.png">
 
 ## Build Setup
 
