@@ -35,7 +35,7 @@
 </template>
 <script>
     import api from "../api"
-export default{
+    export default{
     data (){
         return {
             total:9,

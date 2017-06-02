@@ -55,15 +55,6 @@
                 console.log("msg:\n"+error);
             });
 
-//            let es = new EventSource("sse");
-//
-//            es.addEventListener("message", function(e){
-//                alert('sse message');
-//                console.log(e.data.module2);
-//                me.info.user=e.data.module2.user;
-//                me.info.ver =e.data.module2.version;
-//                me.info.clientnum =e.data.module2.clientnum;
-//            },false);
         }
     }
 </script>
