@@ -6,7 +6,7 @@
 
             <div class="system-info">
                 <ul>
-                    <li><span>系统时间:</span>{{info.servertime}}</li>
+                    <li><span>系统时间:</span>{{info.date}}&nbsp;&nbsp;{{info.time}}</li>
                     <li><span>当前用户:</span>{{info.user}}</li>
                     <li><span>当前版本:</span>{{info.ver}}</li>
                     <li><span>系统最大连接数:</span>{{info.clientnum}}</li>
@@ -19,12 +19,14 @@
 </template>
 
 <script>
+    import api from "../api"
     export default{
         data (){
             return {
                 msg:"123",
                 info:{
-                    "servertime":new Date(),
+                    "date":'',
+                    "time":'',
                     "user":'admin',
                     "ver":'10.0.2',
                     "clientnum":'100'
@@ -32,16 +34,29 @@
             }
         },
         mounted (){
-            console.log(1);
-            let es = new EventSource("sse");
+            let me = this;
 
-            es.addEventListener("message", function(e){
-                alert('sse message');
-                console.log(e.data.module1);
-                me.info.user=e.data.module1.user;
-                me.info.ver =e.data.module1.version;
-                me.info.clientnum =e.data.module1.clientnum;
-            },false);
+//            setInterval(function(){
+                api.getinfo(function (data1, data2,data3,data4) {
+                    console.log(data1);
+                    me.info.date = data1.data.Date;
+                    me.info.time = data1.data.Time;
+                    me.info.user = data2.data.UserInfo.UserName;
+                    me.info.ver = data3.data.Version;
+                    me.info.clientnum = data4.data.LimitCount;
+                });
+
+//            },5000);
+
+//            let es = new EventSource("sse");
+//
+//            es.addEventListener("message", function(e){
+//                alert('sse message');
+//                console.log(e.data.info);
+//                me.info.user=e.data.info.user;
+//                me.info.ver =e.data.info.version;
+//                me.info.clientnum =e.data.info.clientnum;
+//            },false);
 
         }
     }

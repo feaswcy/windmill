@@ -5,108 +5,89 @@
             <tr>
                 <th>风机编号</th>
                 <th>状态</th>
-                <th>发电量</th>
                 <th>实时风速</th>
                 <th>实时功率</th>
                 <th>实时无功</th>
                 <th>叶轮转速</th>
                 <th>电机转速</th>
-                <th>扭揽角度</th>
                 <th>变桨角度</th>
                 <th>电网频率</th>
             </tr>
             </thead>
             <tbody>
             <tr v-for="(item, index) in tabledata">
-                <th>{{item.num}}</th>
-                <td v-if="item.status==0" class="off">停机</td>
-                <td v-if="item.status==1" class="on">运行中</td>
-                <td>{{item.eletric}}</td>
-                <td>{{item.windspeed}}</td>
-                <td>{{item.power1}}</td>
-                <td>{{item.power2}}</td>
-                <td>{{item.speed1}}</td>
-                <td>{{item.speed2}}</td>
-                <td>{{item.angle1}}</td>
-                <td>{{item.angle2}}</td>
-                <td>{{item.frequency}}</td>
+                <th>{{item.name}}</th>
+                <td v-if="item.status.value==1" class="on">运行中</td>
+                <td v-else class="off">停机</td>
+                <td>{{item.windspeed.value}}</td>
+
+                <td>{{item.power1.value}}</td>
+                <td>{{item.power2.value}}</td>
+                <td>{{item.speed1.value}}</td>
+
+                <td>{{item.speed2.value}}</td>
+                <td>{{item.angle.value}}</td>
+                <td>{{item.frequency.value}}</td>
             </tr>
             </tbody>
         </table>
     </div>
 </template>
 <script>
-
-export default{
+    import api from "../api"
+    export default{
     data (){
         return {
-            msg:"123",
+            total:9,
             tabledata:[
                 {
-                    num:"A01",
+                    name:"A01",
                     status:'1',
-                    eletric:'800',
-                    windspeed:'15',
-                    power1:'800',
-                    power2:'800',
-                    speed1:'800',
-                    speed2:'800',
-                    angle1:'800',
-                    angle2:'800',
-                    frequency:'100.00'
-                },
-                {
-                    num:"A01",
-                    status:'1',
-                    eletric:'800',
-                    windspeed:'15',
-                    power1:'800',
-                    power2:'800',
-                    speed1:'800',
-                    speed2:'800',
-                    angle1:'800',
-                    angle2:'800',
-                    frequency:'100.00'
-                },
-                {
-                    num:"A01",
-                    status:'1',
-                    eletric:'800',
-                    windspeed:'15',
-                    power1:'800',
-                    power2:'800',
-                    speed1:'800',
-                    speed2:'800',
-                    angle1:'800',
-                    angle2:'800',
-                    frequency:'100.00'
-                },
-                {
-                    num:"A01",
-                    status:'1',
-                    eletric:'800',
-                    windspeed:'15',
-                    power1:'800',
-                    power2:'800',
-                    speed1:'800',
-                    speed2:'800',
-                    angle1:'800',
-                    angle2:'800',
-                    frequency:'100.00'
+//                    eletric:{
+//                        value:'800'
+//                    },
+                    windspeed:{
+                        value:'15'
+                    },
+                    power1:{
+                        value:'800'
+                    },
+                    power2:{
+                        value:'800'
+                    },
+                    speed1:{
+                        value:'800'
+                    },
+                    speed2:{
+                        value:'800'
+                    },
+                    angle:{
+                        value:'800'
+                    },
+                    frequency:{
+                        value:'800'
+                    }
                 }
             ]
         }
     },
     mounted (){
-        let es = new EventSource("sse");
-
-        es.addEventListener("message", function(e){
-            alert('sse message');
-            console.log(e.data.module3);
-            me.info.user=e.data.module3.user;
-            me.info.ver =e.data.module3.version;
-            me.info.clientnum =e.data.module3.clientnum;
-        },false);
+        let me =this;
+        api.getvalue(2,function(data){
+            console.log(data);
+            me.tabledata = data;
+        },function (error) {
+            console.log("msg:\n"+error);
+        });
+//        let es = new EventSource("sse");
+//
+//        es.addEventListener("message", function(e){
+//            alert('sse message');
+//            console.log(e.data.module3);
+//            me.info.user=e.data.module3.user;
+//            me.info.ver =e.data.module3.version;
+//            me.info.clientnum =e.data.module3.clientnum;
+//        },false);
     }
 }
 </script>

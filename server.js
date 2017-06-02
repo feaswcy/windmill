@@ -81,8 +81,6 @@ app.get('*', (req, res) => {
       var s = Date.now()
       const context = { url: req.url }
 
-      console.log(context);
-
       const renderStream = renderer.renderToStream(context)
       renderStream.once('data', () => {
           res.write(indexHTML.head)

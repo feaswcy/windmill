@@ -5,10 +5,12 @@ Vue.use(Router)
 
 import SystemView from '../views/SystemView.vue'
 import WindmillView from  '../views/WindmillView.vue'
+import ControlView from '../views/ControlView.vue'
 import GraphView from '../views/GraphView.vue'
 import AlarmView from  '../views/AlarmView.vue'
 import LogView from  '../views/LogView.vue'
 import ProjectView from '../views/ProjectView.vue'
+
 
 export default new Router({
   mode: 'history',
@@ -18,6 +20,7 @@ export default new Router({
     { path: '/system', component:SystemView },
     { path: '/project', component:ProjectView },
     { path: '/windmill', component:WindmillView},
+    {path: '/control', component: ControlView },
     { path: '/graph', component: GraphView },
     { path: '/alarm', component: AlarmView },
     { path: '/log', component: LogView},

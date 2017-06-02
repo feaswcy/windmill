@@ -1,15 +1,19 @@
 <template>
     <div id="windmill-list">
         <ul>
+            <!--<router-link to="/windmill">-->
+            <!--<i class="iconfont">&#xe62c;</i>-->
+            <!--风场信息</router-link>-->
+
             <li v-for="(item, index) in items" v-on:click="showdetail">
                 <i class="iconfont">&#xe8c9;</i>
                 <div>
-                    <p>编号:<span class="num">{{item.num}}</span></p>
+                    <p>编号:<span class="num">{{item.name}}</span></p>
                     <p>状态:
-                        <span v-if="item.status==0" class="off">停机</span>
-                        <span v-if="item.status==1" class="on">启动</span>
-                    <p>风速:<span>{{item.speed}}</span></p>
-                    <p>功率:<span>{{item.power}}</span></p>
+                        <span v-if="item.status.value==1" class="on">启动</span>
+                        <span v-else class="off">停机</span>
+                    <p>风速:<span>{{item.windspeed.value==''?500:item.windspeed.value}}</span></p>
+                    <p>功率:<span>{{item.power1.value==''?800:item.power1.value}}</span></p>
                 </div>
             </li>
         </ul>
@@ -17,6 +21,8 @@
 </template>
 
 <script>
+    import api from "../api"
+
     export default{
         data (){
             return {
@@ -24,58 +30,31 @@
                     {
                        num:'A01',
                        status:"0",
-                       speed:"15.00",
-                       power:'800.00'
-                    },{
-                        num:'A01',
-                        status:"0",
-                        speed:"15.00",
-                        power:'800.00'
-                    },{
-                        num:'A01',
-                        status:"1",
-                        speed:"15.00",
-                        power:'800.00'
-                    },{
-                        num:'A01',
-                        status:"1",
-                        speed:"15.00",
-                        power:'800.00'
-                    },{
-                        num:'A01',
-                        status:"1",
-                        speed:"15.00",
-                        power:'800.00'
-                    },{
-                        num:'A01',
-                        status:"1",
-                        speed:"15.00",
-                        power:'800.00'
-                    },{
-                        num:'A01',
-                        status:"1",
-                        speed:"15.00",
-                        power:'800.00'
+                       windspeed:{
+                           value:"15.00"
+                       },
+                       power1:{
+                           value:"15.00"
+                       }
                     }
-
                 ],
             }
         },
+
         methods: {
             showdetail: function () {
                 alert(1);
             }
         },
         mounted (){
-            let es = new EventSource("sse");
+            let me = this;
+            api.getvalue(1,function(finaldata){
+                console.log(finaldata)
+                me.items = finaldata
+            },function(error){
+                console.log("msg:\n"+error);
+            });
 
-            es.addEventListener("message", function(e){
-                alert('sse message');
-                console.log(e.data.module2);
-                me.info.user=e.data.module2.user;
-                me.info.ver =e.data.module2.version;
-                me.info.clientnum =e.data.module2.clientnum;
-            },false);
         }
     }
 </script>

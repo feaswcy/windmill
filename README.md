@@ -1,12 +1,12 @@
 # 风机管理系统
 
-使用vue2.0 + vue-router + vuex 以及服务端渲染搭建的组态软件上层系统
+使用vue2.0 + vue-router + WebAccess web service轮询搭建的组态软件上层系统
 
 <p align="center">
   <a href="https://vue-hn.now.sh" target="_blank">
-    <img src="https://cloud.githubusercontent.com/assets/499550/17546273/5aabc5fc-5eaf-11e6-8d6a-ad00937e8bd6.png" width="700px">
+    <img width="973" alt="screen shot 2016-08-11 at 6 06 57 pm" src="https://github.com/feaswcy/windmill/blob/dev/thumb.png" width="700px">
     <br>
-    样例
+    图示
   </a>
 </p>
 
@@ -15,8 +15,8 @@
 ## Features
 
 - Server Side Rendering
-  - Vue + vue-router + vuex working together
-  - Server-side data pre-fetching
+  - Vue + vue-router + axios working together
+  - data poll
   - Client-side state & DOM hydration
 - Single-file Vue Components
   - Hot-reload in development
@@ -46,7 +46,7 @@ npm start
 ```
 
 
-## windwill system
+## windmill system
 
 描述：工业自动化以具体项目为背景完成一站点为基础完成服务器端的数据汇总，具体功能，实现：远程监控、双层架构（服务器端）、数据实时采集、数据报警、运行日志、公网发布、动态ip主动上报
 
