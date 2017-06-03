@@ -79,15 +79,6 @@
         },function (error) {
             console.log("msg:\n"+error);
         });
-//        let es = new EventSource("sse");
-//
-//        es.addEventListener("message", function(e){
-//            alert('sse message');
-//            console.log(e.data.module3);
-//            me.info.user=e.data.module3.user;
-//            me.info.ver =e.data.module3.version;
-//            me.info.clientnum =e.data.module3.clientnum;
-//        },false);
     }
 }
 </script>

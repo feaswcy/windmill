@@ -79,15 +79,6 @@
                 me.total = data.data.Result.Total;
             })
         }
-//            let es = new EventSource("sse");
-//
-//            es.addEventListener("message", function(e){
-////                alert('sse message');
-//                console.log(e.data.module5);
-//                me.info.user=e.data.module5.user;
-//                me.info.ver =e.data.module5.version;
-//                me.info.clientnum =e.data.module5.clientnum;
-//            },false);
     }
 </script>
 

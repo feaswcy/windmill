@@ -25,11 +25,11 @@
             return {
                 msg:"123",
                 info:{
-                    "date":'',
-                    "time":'',
-                    "user":'admin',
-                    "ver":'10.0.2',
-                    "clientnum":'100'
+                    "date":'default',
+                    "time":'default',
+                    "user":'default',
+                    "ver":'default',
+                    "clientnum":'default'
                 }
             }
         },
@@ -38,26 +38,15 @@
 
 //            setInterval(function(){
                 api.getinfo(function (data1, data2,data3,data4) {
-                    console.log(data1);
+                    console.log(data2);
                     me.info.date = data1.data.Date;
                     me.info.time = data1.data.Time;
-                    me.info.user = data2.data.UserInfo.UserName;
-                    me.info.ver = data3.data.Version;
+                    me.info.ver = data2.data.Version;
+                    me.info.user = data3.data.UserInfo.UserName;
                     me.info.clientnum = data4.data.LimitCount;
                 });
 
 //            },5000);
-
-//            let es = new EventSource("sse");
-//
-//            es.addEventListener("message", function(e){
-//                alert('sse message');
-//                console.log(e.data.info);
-//                me.info.user=e.data.info.user;
-//                me.info.ver =e.data.info.version;
-//                me.info.clientnum =e.data.info.clientnum;
-//            },false);
-
         }
     }
 </script>

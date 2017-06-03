@@ -1,21 +1,19 @@
 <template>
     <div id="windmill-list">
         <ul>
-            <!--<router-link to="/windmill">-->
-            <!--<i class="iconfont">&#xe62c;</i>-->
-            <!--风场信息</router-link>-->
-
-            <li v-for="(item, index) in items" v-on:click="showdetail">
-                <i class="iconfont">&#xe8c9;</i>
-                <div>
-                    <p>编号:<span class="num">{{item.name}}</span></p>
-                    <p>状态:
-                        <span v-if="item.status.value==1" class="on">启动</span>
-                        <span v-else class="off">停机</span>
-                    <p>风速:<span>{{item.windspeed.value==''?500:item.windspeed.value}}</span></p>
-                    <p>功率:<span>{{item.power1.value==''?800:item.power1.value}}</span></p>
-                </div>
-            </li>
+                <li v-for="(item, index) in items" >
+                    <i class="iconfont">&#xe8c9;</i>
+                    <div>
+                        <p>编号:<span class="num">{{item.name}}</span></p>
+                        <router-link to="/control"><p>状态:
+                            <span v-if="item.status.value==1" class="on">启动</span>
+                            <span v-else class="off">停机</span>
+                        </p>
+                        </router-link>
+                        <p>风速:<span>{{item.windspeed.value==''?500:item.windspeed.value}}</span></p>
+                        <p>功率:<span>{{item.power1.value==''?800:item.power1.value}}</span></p>
+                    </div>
+                </li>
         </ul>
     </div>
 </template>
@@ -40,11 +38,8 @@
                 ],
             }
         },
-
         methods: {
-            showdetail: function () {
-                alert(1);
-            }
+
         },
         mounted (){
             let me = this;

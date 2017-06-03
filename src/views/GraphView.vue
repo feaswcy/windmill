@@ -1,7 +1,7 @@
 <template>
     <div id="graph">
         <div class="graph1">
-            <h3>实时趋势图</h3>
+            <h3>实时功率趋势图</h3>
             <div id="chart1" :style="{width:'800px',height:'400px'}"></div>
         </div>
         <div class="graph2">
@@ -13,53 +13,30 @@
 
 <script>
     import echarts from "echarts"
+    import api from "../api"
+//    let now = new Date();
     export default{
         data (){
             return {
                 msg:"123",
                 chart1data:{
-                    data1:[[{
-                        name:(new Date()).toString(),
-                        value:['2017/5/2 12:00',690]
-                    },{
-                        name:(new Date()).toString(),
-                        value:['2017/5/3 12:00',1290]
-                    },{
-                        name:(new Date()).toString(),
-                        value:['2017/5/4 12:00',1590]
-                    }]],
-                    data2:[{
-                        name:(new Date()).toString(),
-                        value:['2017/5/2 12:00',790]
-                    },{
-                        name:(new Date()).toString(),
-                        value:['2017/5/3 12:00',1390]
-                    },{
-                        name:(new Date()).toString(),
-                        value:['2017/5/4 12:00',1690]
-                    }],
-                    data3:[{
-                        name:(new Date()).toString(),
-                        value:['2017/5/2 12:00',890]
-                    },{
-                        name:(new Date()).toString(),
-                        value:['2017/5/3 12:00',1490]
-                    },{
-                        name:(new Date()).toString(),
-                        value:['2017/5/4 12:00',1690]
-                    }]
+                    0:[],
+                    1:[],
+                    2:[],
+                    3:[],
+                    4:[]
                 },
                 chart2data:{
-                    power:[2.0, 4.9, 7.0, 23.2, 25.6],
-                    speed:[2.6, 5.9, 9.0, 26.4, 28.7],
+                    power:[],
+                    speed:[]
                 }
             }
         },
         mounted (){
             let me = this;
-
             let myChart1 = echarts.init(document.getElementById('chart1'));
             let myChart2 = echarts.init(document.getElementById('chart2'));
+
             let option1 = {
                 tooltip: {
                     trigger: 'axis',
@@ -69,33 +46,27 @@
                 },
                 legend:{
                     show:true,
-                    data:['A1','A2']
+                    data:['A1风机功率','A2风机功率']
                 },
                 xAxis: {
-                    type: 'time',
+                    type: 'time'
                 },
                 yAxis: {
                     type: 'value',
-//                    boundaryGap: [0, '100%'],
+                    boundaryGap: [0, '100%']
                 },
                 series: [{
-                    name: 'A1风机',
+                    name: 'A1风机功率',
                     type: 'line',
                     showSymbol: false,
                     hoverAnimation: false,
                     data: me.chart1data.data1
                 },{
-                    name: 'A2风机',
+                    name: 'A2风机功率',
                     type: 'line',
                     showSymbol: false,
                     hoverAnimation: false,
                     data: me.chart1data.data2
-                },{
-                    name: 'A3风机',
-                    type: 'line',
-                    showSymbol: false,
-                    hoverAnimation: false,
-                    data: me.chart1data.data3
                 }]
             };
             let option2 = {
@@ -162,21 +133,38 @@
                 ]
             };
 
-            myChart1.setOption(option1);
-            myChart2.setOption(option2);
+            api.getvalue(1,function (result) {
+                console.log(result);
+                let now = new Date();
+                for(let i=0;i<result.length;i++){
+                    let index = result[i].id;
+                    if(index<5){
+                        //功率折线图
+                        let obj ={
+                            value:[now.toString(),result[i].power1.value]
+                        };
+                        console.log(me.chart1data[index]);
+                        me.chart1data[index].push(obj);
+                        //功率对比图
+                        me.chart2data.power.push(result[i].power1.value);
+                        me.chart2data.speed.push(result[i].windspeed.value);
+                    }
+                }
+                console.log(me.chart1data);
+
+                myChart1.setOption(option1);
+                myChart2.setOption(option2);
+            });
+
 //            setInterval(function () {
-//
-//                for (var i = 0; i < 5; i++) {
-//                    data.shift();
-//                    data.push(randomData());
-//                }
+//                let data = me.chart1data
 //
 //                myChart1.setOption({
 //                    series: [{
 //                        data: me.data
 //                    }]
 //                });
-//            }, 5000);
+//            }, 3000);
 
         }
 

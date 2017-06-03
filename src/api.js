@@ -1,7 +1,7 @@
 
 const axios = require('axios');
 // const serverIp = "127.0.0.1";
-const serverIp = "10.3.16.213";
+const serverIp = "10.3.27.226";
 const userName = "admin";
 const passWord = "";
 const projectname = "test";
@@ -29,7 +29,7 @@ function makereq(url){
 // 点名称与相关含义:
 // F1WIND0*:RO31: 有功功率
 // F1WIND0*:RO32: 无功功率
-// F1WIND0*:R036: zhuangtai
+// F1WIND0*:R036: 运行状态
 // F1WIND0*:R053: 风轮转速
 // F1WIND0*:R052： 发电机转速
 // F1WIND0*:R137: 平均桨距角
@@ -37,8 +37,9 @@ function makereq(url){
 // F1WIND0*:R130: 风速
 // F1WIND10*
 
-
 module.exports={
+
+    serverIp:serverIp,
     //获得系统信息
     getinfo:function(cb){
         axios.all([makereq('ServerTime'),
@@ -54,11 +55,9 @@ module.exports={
     getlog:function(cb){
         makereq('GetActionLog/'+projectname+'/'+nodename+'/0/10').then(cb);
     },
-
     //获得所有风机的参数信息
-    getvalue:function(type,successcb,errorcb){
+    getvalue:function(type,successcb){
         let paramdata = [];
-
         if(type==1){
             //风机信息 + 趋势图
             for(let i= 0;i<total;i++){
@@ -151,10 +150,8 @@ module.exports={
         }).then(function(response){
             let res = [];
             let valuelist = response.data.Values;
-
             for(let j=0;j<paramdata.length;j++){
                 let item = paramdata[j];
-
                 for(let key in item){
                     for(let i=0;i<valuelist.length;i++){
                         if(item[key].pointname==valuelist[i].Name){

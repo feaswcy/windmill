@@ -66,15 +66,6 @@
             me.logdatas = res;
         }
     );
-//      let es = new EventSource("sse");
-//
-//        es.addEventListener("message", function(e){
-//           alert('sse message');
-//            console.log(e.data.module6);
-//            me.info.user=e.data.module6.user;
-//            me.info.ver =e.data.module6.version;
-//            me.info.clientnum =e.data.module6.clientnum;
-//        },false);
     }
 }
 </script>
