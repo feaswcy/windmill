@@ -26,13 +26,13 @@
             return {
                 items:[
                     {
-                       num:'A01',
-                       status:"0",
+                       num:'',
+                       status:"",
                        windspeed:{
-                           value:"15.00"
+                           value:""
                        },
                        power1:{
-                           value:"15.00"
+                           value:""
                        }
                     }
                 ],

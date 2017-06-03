@@ -34,28 +34,14 @@
     export default{
         data (){
             return {
-                total:"123",
+                total:"",
                 alarmdatas:[{
-                    date:"2016/04/14",
-                    time:"17:29:45",
-                    pointname:"A01",
-                    describe:"::风机无功发电量",
-                    action:'F1WIND01:R050 ->正常 (50.00)',
-                    priority:'90',
-                },{
-                    date:"2016/04/14",
-                    time:"17:39:45",
-                    pointname:"A01",
-                    describe:"::风机无功发电量",
-                    action:'F1WIND01:R050 ->正常 (50.00)',
-                    nodename:"node"
-                },{
-                    date:"2016/04/14",
-                    time:"17:59:45",
-                    pointname:"A01",
-                    describe:"::风机无功发电量",
-                    action:'F1WIND01:R050 ->正常 (50.00)',
-                    nodename:"::风机无功发电量"
+                    date:"",
+                    time:"",
+                    pointname:"",
+                    describe:"",
+                    action:'',
+                    priority:'',
                 }]
             }
         },

@@ -148,6 +148,7 @@ module.exports={
             dataType:'json',
             headers: {"Authorization":"Basic YWRtaW46"},
         }).then(function(response){
+            console.log(response);
             let res = [];
             let valuelist = response.data.Values;
             for(let j=0;j<paramdata.length;j++){
@@ -155,7 +156,11 @@ module.exports={
                 for(let key in item){
                     for(let i=0;i<valuelist.length;i++){
                         if(item[key].pointname==valuelist[i].Name){
-                            item[key].value = valuelist[i].Value;
+                            if(valuelist[i].Value=='-2'||valuelist[i].Value=='-1'){
+                                item[key].value = '80'
+                            }else{
+                                item[key].value = valuelist[i].Value;
+                            }
                         }
                     }
                 }

@@ -2,17 +2,17 @@
     <div id="table-container">
         <table>
             <thead>
-            <tr>
-                <th>风机编号</th>
-                <th>状态</th>
-                <th>实时风速</th>
-                <th>实时功率</th>
-                <th>实时无功</th>
-                <th>叶轮转速</th>
-                <th>电机转速</th>
-                <th>变桨角度</th>
-                <th>电网频率</th>
-            </tr>
+                <tr>
+                    <th>风机编号</th>
+                    <th>状态</th>
+                    <th>实时风速</th>
+                    <th>实时功率</th>
+                    <th>实时无功</th>
+                    <th>叶轮转速</th>
+                    <th>电机转速</th>
+                    <th>变桨角度</th>
+                    <th>电网频率</th>
+                </tr>
             </thead>
             <tbody>
             <tr v-for="(item, index) in tabledata">
@@ -43,9 +43,6 @@
                 {
                     name:"A01",
                     status:'1',
-//                    eletric:{
-//                        value:'800'
-//                    },
                     windspeed:{
                         value:'15'
                     },
@@ -74,7 +71,6 @@
     mounted (){
         let me =this;
         api.getvalue(2,function(data){
-            console.log(data);
             me.tabledata = data;
         },function (error) {
             console.log("msg:\n"+error);

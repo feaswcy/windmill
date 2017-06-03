@@ -32,20 +32,10 @@
         return {
             total:'771',
             logdatas:[{
-                date:"2016/04/14",
-                time:"17:29:45",
-                action:"admin注销",
-                priority:"1"
-            },{
-                date:"2016/04/14",
-                time:"17:39:45",
-                action:"admin注销",
-                priority:"1"
-            },{
-                date:"2016/04/14",
-                time:"17:59:45",
-                action:"admin注销",
-                priority:'1'
+                date:"",
+                time:"",
+                action:"",
+                priority:""
             }]
         }
     },
