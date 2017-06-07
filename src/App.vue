@@ -74,7 +74,6 @@ aside
   top 80px
   bottom 0
   z-index 999
-  overflow-y scroll
   background #000
   a
     i.iconfont{
