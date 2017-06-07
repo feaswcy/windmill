@@ -1,7 +1,7 @@
 
 const axios = require('axios');
 // const serverIp = "127.0.0.1";
-const serverIp = "10.3.27.226";
+const serverIp = "10.3.59.44";
 const userName = "admin";
 const passWord = "";
 const projectname = "test";
@@ -10,18 +10,20 @@ const total =9;
 const baseUrl = 'http://'+serverIp+'/WaWebService/Json/';
 
 function base64_encode(s){
-    if(window.btoa)return window.btoa(s);
+    if(global.btoa)return global.btoa(s);
     var Base64={K:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",encode:function(e){var t="";var n,r,i,s,o,u,a;var f=0;e=Base64._utf8_encode(e);while(f<e.length){n=e.charCodeAt(f++);r=e.charCodeAt(f++);i=e.charCodeAt(f++);s=n>>2;o=(n&3)<<4|r>>4;u=(r&15)<<2|i>>6;a=i&63;if(isNaN(r)){u=a=64}else if(isNaN(i)){a=64}t=t+this.K.charAt(s)+this.K.charAt(o)+this.K.charAt(u)+this.K.charAt(a)}return t},_utf8_encode:function(e){e=e.replace(/\r\n/g,"\n");var t="";for(var n=0;n<e.length;n++){var r=e.charCodeAt(n);if(r<128){t+=String.fromCharCode(r)}else if(r>127&&r<2048){t+=String.fromCharCode(r>>6|192);t+=String.fromCharCode(r&63|128)}else{t+=String.fromCharCode(r>>12|224);t+=String.fromCharCode(r>>6&63|128);t+=String.fromCharCode(r&63|128)}}return t}}
     return Base64.encode(s);
 }
+
+console.log('Basic'+base64_encode(userName+":"+passWord));
 
 //封装请求
 function makereq(url){
     let instance = axios.create({
         baseURL: baseUrl+url,
         timeout: 5000,
-        // headers: {'Authorization': 'Basic'+base64_encode(userName+":"+passWord)}
-        headers: {"Authorization":"Basic YWRtaW46"},
+        headers: {'Authorization': 'Basic '+base64_encode(userName+":"+passWord)}
+        // headers: {"Authorization":"Basic YWRtaW46"},
     });
     return instance.get();
 }

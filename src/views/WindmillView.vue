@@ -43,12 +43,15 @@
         },
         mounted (){
             let me = this;
-            api.getvalue(1,function(finaldata){
-                console.log(finaldata)
-                me.items = finaldata
-            },function(error){
-                console.log("msg:\n"+error);
-            });
+
+            setInterval(function(){
+                api.getvalue(1,function(finaldata){
+                    console.log(finaldata)
+                    me.items = finaldata
+                },function(error){
+                    console.log("msg:\n"+error);
+                });
+            },5000);
 
         }
     }

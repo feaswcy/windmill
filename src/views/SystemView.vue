@@ -35,8 +35,7 @@
         },
         mounted (){
             let me = this;
-
-//            setInterval(function(){
+            setInterval(function(){
                 api.getinfo(function (data1, data2,data3,data4) {
                     console.log(data2);
                     me.info.date = data1.data.Date;
@@ -46,7 +45,7 @@
                     me.info.clientnum = data4.data.LimitCount;
                 });
 
-//            },5000);
+            },5000);
         }
     }
 </script>

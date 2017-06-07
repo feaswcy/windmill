@@ -93,18 +93,20 @@
                     }
                 ]
             };
-            api.getvalue(1,function (result) {
+            setInterval(function(){
+                api.getvalue(1,function (result) {
 
-                for(let i=0;i<result.length;i++){
-                    let index = result[i].id;
-                    if(index<5){
-                        //功率对比图
-                        me.chart2data.power.push(result[i].power1.value);
-                        me.chart2data.speed.push(result[i].windspeed.value);
+                    for(let i=0;i<result.length;i++){
+                        let index = result[i].id;
+                        if(index<5){
+                            //功率对比图
+                            me.chart2data.power.push(result[i].power1.value);
+                            me.chart2data.speed.push(result[i].windspeed.value);
+                        }
                     }
-                }
-                myChart2.setOption(option2);
-            });
+                    myChart2.setOption(option2);
+                });
+            },5000)
         }
     }
 </script>

@@ -12,21 +12,13 @@
     export default{
         data (){
             return {
-                msg:"123",
-                info:{
-                    "servertime":new Date(),
-                    "user":'admin',
-                    "ver":'10.0.2',
-                    "clientnum":'100'
-                }
+                add:'/broadweb/bwviewpg.asp?proj=test&node=node&goto=graph=main.bgr&tool=0&capt=0&stat=0'
             }
         },
         mounted (){
             let frame = document.getElementById("con-frame");
             let url = "http://"+serverIp+'/broadweb/bwviewpg.asp?proj=test&node=node&goto=graph=main.bgr&tool=0&capt=0&stat=0';
             frame.setAttribute("src",url);
-
-
         }
     }
 </script>

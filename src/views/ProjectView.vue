@@ -70,11 +70,16 @@
     },
     mounted (){
         let me =this;
-        api.getvalue(2,function(data){
-            me.tabledata = data;
-        },function (error) {
-            console.log("msg:\n"+error);
-        });
+
+        setInterval(function(){
+            api.getvalue(2,function(data){
+                me.tabledata = data;
+            },function (error) {
+                console.log("msg:\n"+error);
+            });
+
+        },5000)
+
     }
 }
 </script>

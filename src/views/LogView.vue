@@ -41,21 +41,25 @@
     },
     mounted (){
         let me =this;
-        api.getlog(function(logdata){
-            let logarr = logdata.data.ActionLogs;
-            let res = [];
-            for(let i=0;i<logarr.length;i++){
-                let obj ={};
-                obj.date=logarr[i].Time.split(/\s/)[0];
-                obj.time=logarr[i].Time.split(/\s/)[1];
-                obj.action=logarr[i].Action;
-                obj.priority=logarr[i].Priority;
-                res.push(obj);
-            }
-            me.total = logdata.data.Result.Total;
-            me.logdatas = res;
-        }
-    );
+        setInterval(function(){
+
+            api.getlog(function(logdata){
+                let logarr = logdata.data.ActionLogs;
+                let res = [];
+                for(let i=0;i<logarr.length;i++){
+                    let obj ={};
+                    obj.date=logarr[i].Time.split(/\s/)[0];
+                    obj.time=logarr[i].Time.split(/\s/)[1];
+                    obj.action=logarr[i].Action;
+                    obj.priority=logarr[i].Priority;
+                    res.push(obj);
+                }
+                me.total = logdata.data.Result.Total;
+                me.logdatas = res;
+            });
+
+        },5000)
+
     }
 }
 </script>

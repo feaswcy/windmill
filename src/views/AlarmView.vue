@@ -47,23 +47,25 @@
         },
         mounted (){
             let me =this;
-            api.getalarm(function(data){
-                let arr2 = data.data.AlarmLogs;
-                let res = [];
-                console.log(data);
-                for(let i=0;i<arr2.length;i++){
-                    let obj = {};
-                    obj.date=arr2[i].Time.split(/\s/)[0];
-                    obj.time=arr2[i].Time.split(/\s/)[1];
-                    obj.pointname=arr2[i].TagName;
-                    obj.describe=arr2[i].Description;
-                    obj.action=arr2[i].Action;
-                    obj.priority=arr2[i].Priority;
-                    res.push(obj);
-                }
-                me.alarmdatas = res;
-                me.total = data.data.Result.Total;
-            })
+            setInterval(function(){
+                api.getalarm(function(data){
+                    let arr2 = data.data.AlarmLogs;
+                    let res = [];
+                    for(let i=0;i<arr2.length;i++){
+                        let obj = {};
+                        obj.date=arr2[i].Time.split(/\s/)[0];
+                        obj.time=arr2[i].Time.split(/\s/)[1];
+                        obj.pointname=arr2[i].TagName;
+                        obj.describe=arr2[i].Description;
+                        obj.action=arr2[i].Action;
+                        obj.priority=arr2[i].Priority;
+                        res.push(obj);
+                    }
+                    me.alarmdatas = res;
+                    me.total = data.data.Result.Total;
+                })
+            },5000)
+
         }
     }
 </script>
