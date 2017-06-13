@@ -1,17 +1,18 @@
 <template>
-    <div id="log">
-       <h3>操作记录<span class="total">总数：{{total}}</span></h3>
-       <table>
-           <thead>
-               <tr>
-                   <th><i></i></th>
-                   <th class="wid150">日期</th>
-                   <th class="wid150">时间</th>
-                   <th class="wid600">内容</th>
-                   <th class="wid600">优先级</th>
-               </tr>
-           </thead>
-            <tbody>
+    <div>
+        <div id="log">
+            <h3>操作记录<span class="total">总数：{{total}}</span></h3>
+            <table>
+                <thead>
+                <tr>
+                    <th><i></i></th>
+                    <th class="wid150">日期</th>
+                    <th class="wid150">时间</th>
+                    <th class="wid600">内容</th>
+                    <th class="wid600">优先级</th>
+                </tr>
+                </thead>
+                <tbody>
                 <tr v-for="key in logdatas">
                     <td><i></i></td>
                     <td class="wid150">{{key.date}}</td>
@@ -20,9 +21,11 @@
                     <td class="wid600">{{key.priority}}</td>
 
                 </tr>
-            </tbody>
-       </table>
+                </tbody>
+            </table>
+        </div>
     </div>
+
 </template>
 
 <script>

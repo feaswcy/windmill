@@ -1,30 +1,32 @@
 <template>
-    <div id="alarm">
-        <h3>报警记录<span class="total">总数：{{total}}</span></h3>
-        <table>
-            <thead>
-            <tr>
-                <th><i></i></th>
-                <th class="wid150">日期</th>
-                <th class="wid150">时间</th>
-                <th class="wid600">点名称</th>
-                <th class="wid150">描述</th>
-                <th class="wid600">优先级</th>
-                <th class="wid150">详情</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr v-for="item in alarmdatas">
-                <td><i></i></td>
-                <td class="wid150">{{item.date}}</td>
-                <td class="wid150">{{item.time}}</td>
-                <td class="wid600">{{item.pointname}}</td>
-                <td class="wid150">{{item.describe}}</td>
-                <td class="wid150">{{item.priority}}</td>
-                <td class="wid600">{{item.action}}</td>
-            </tr>
-            </tbody>
-        </table>
+    <div>
+        <div id="alarm">
+            <h3>报警记录<span class="total">总数：{{total}}</span></h3>
+            <table>
+                <thead>
+                <tr>
+                    <th><i></i></th>
+                    <th class="wid150">日期</th>
+                    <th class="wid150">时间</th>
+                    <th class="wid600">点名称</th>
+                    <th class="wid150">描述</th>
+                    <th class="wid600">优先级</th>
+                    <th class="wid150">详情</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="item in alarmdatas">
+                    <td><i></i></td>
+                    <td class="wid150">{{item.date}}</td>
+                    <td class="wid150">{{item.time}}</td>
+                    <td class="wid600">{{item.pointname}}</td>
+                    <td class="wid150">{{item.describe}}</td>
+                    <td class="wid150">{{item.priority}}</td>
+                    <td class="wid600">{{item.action}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </template>
 

@@ -23,7 +23,8 @@ module.exports = {
   },
   resolve: {
     alias: {
-      'public': path.resolve(__dirname, '../public')
+      'public': path.resolve(__dirname, '../public'),
+      'jquery': path.resolve(__dirname, '../node_modules/jquery/src/jquery')
     }
   },
   module: {

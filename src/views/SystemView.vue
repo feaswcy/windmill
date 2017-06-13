@@ -1,20 +1,21 @@
 <template>
-    <div id="system-container">
-        <div class="title-container">
+    <div >
+        <div id="system-container">
+            <div class="title-container">
 
-            <h3>欢迎来到毕业设计-风电监控系统</h3>
+                <h3>欢迎来到毕业设计-风电监控系统</h3>
 
-            <div class="system-info">
-                <ul>
-                    <li><span>系统时间:</span>{{info.date}}&nbsp;&nbsp;{{info.time}}</li>
-                    <li><span>当前用户:</span>{{info.user}}</li>
-                    <li><span>当前版本:</span>{{info.ver}}</li>
-                    <li><span>系统最大连接数:</span>{{info.clientnum}}</li>
-                </ul>
+                <div class="system-info">
+                    <ul>
+                        <li><span>系统时间:</span>{{info.date}}&nbsp;&nbsp;{{info.time}}</li>
+                        <li><span>当前用户:</span>{{info.user}}</li>
+                        <li><span>当前版本:</span>{{info.ver}}</li>
+                        <li><span>系统最大连接数:</span>{{info.clientnum}}</li>
+                    </ul>
 
+                </div>
             </div>
         </div>
-
     </div>
 </template>
 
@@ -35,17 +36,17 @@
         },
         mounted (){
             let me = this;
-            setInterval(function(){
-                api.getinfo(function (data1, data2,data3,data4) {
-                    console.log(data2);
-                    me.info.date = data1.data.Date;
-                    me.info.time = data1.data.Time;
-                    me.info.ver = data2.data.Version;
-                    me.info.user = data3.data.UserInfo.UserName;
-                    me.info.clientnum = data4.data.LimitCount;
-                });
-
-            },5000);
+//            setInterval(function(){
+//                api.getinfo(function (data1, data2,data3,data4) {
+//                    console.log(data2);
+//                    me.info.date = data1.data.Date;
+//                    me.info.time = data1.data.Time;
+//                    me.info.ver = data2.data.Version;
+//                    me.info.user = data3.data.UserInfo.UserName;
+//                    me.info.clientnum = data4.data.LimitCount;
+//                });
+//
+//            },5000);
         }
     }
 </script>
@@ -54,19 +55,17 @@
 <style lang="stylus" rel="stylesheet/stylus">
 #system-container{
     max-width:100%;
-    height:600px;
-    width:100%;
-    margin 80px 0 0 70px
-    background-image url('/public/bg.jpeg')
-    background-size cover
+    position:absolute
+    top:0;bottom:0;left:0;right:0;
+    background-image:url('/public/bg.jpeg')
+    background-size:cover
     img{
         width 100%;
     }
     .title-container{
         margin: 0 auto;
         padding-top:200px;
-        height 400px;
-        width 600px;
+        width:70%;
         color #fff
         h3{
             font-size 30px;

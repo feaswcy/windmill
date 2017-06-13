@@ -15,8 +15,6 @@ function base64_encode(s){
     return Base64.encode(s);
 }
 
-console.log('Basic'+base64_encode(userName+":"+passWord));
-
 //封装请求
 function makereq(url){
     let instance = axios.create({
@@ -27,7 +25,6 @@ function makereq(url){
     });
     return instance.get();
 }
-
 // 点名称与相关含义:
 // F1WIND0*:RO31: 有功功率
 // F1WIND0*:RO32: 无功功率

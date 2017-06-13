@@ -1,6 +1,7 @@
 <template>
-    <div id="windmill-list">
-        <ul>
+    <div>
+        <div id="windmill-list">
+            <ul>
                 <li v-for="(item, index) in items" >
                     <i class="iconfont">&#xe8c9;</i>
                     <div>
@@ -14,7 +15,8 @@
                         <p>功率:<span>{{item.power1.value==''?800:item.power1.value}}</span></p>
                     </div>
                 </li>
-        </ul>
+            </ul>
+        </div>
     </div>
 </template>
 
@@ -60,7 +62,7 @@
 
 <style lang="stylus" rel="stylesheet/stylus">
     #windmill-list{
-        margin-left:150px
+
         ul{
             overflow hidden
             li{

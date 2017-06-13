@@ -1,7 +1,8 @@
 <template>
-    <div id="table-container">
-        <table>
-            <thead>
+    <div>
+        <div id="table-container">
+            <table>
+                <thead>
                 <tr>
                     <th>风机编号</th>
                     <th>状态</th>
@@ -13,24 +14,25 @@
                     <th>变桨角度</th>
                     <th>电网频率</th>
                 </tr>
-            </thead>
-            <tbody>
-            <tr v-for="(item, index) in tabledata">
-                <th>{{item.name}}</th>
-                <td v-if="item.status.value==1" class="on">运行中</td>
-                <td v-else class="off">停机</td>
-                <td>{{item.windspeed.value}}</td>
+                </thead>
+                <tbody>
+                <tr v-for="(item, index) in tabledata">
+                    <th>{{item.name}}</th>
+                    <td v-if="item.status.value==1" class="on">运行中</td>
+                    <td v-else class="off">停机</td>
+                    <td>{{item.windspeed.value}}</td>
 
-                <td>{{item.power1.value}}</td>
-                <td>{{item.power2.value}}</td>
-                <td>{{item.speed1.value}}</td>
+                    <td>{{item.power1.value}}</td>
+                    <td>{{item.power2.value}}</td>
+                    <td>{{item.speed1.value}}</td>
 
-                <td>{{item.speed2.value}}</td>
-                <td>{{item.angle.value}}</td>
-                <td>{{item.frequency.value}}</td>
-            </tr>
-            </tbody>
-        </table>
+                    <td>{{item.speed2.value}}</td>
+                    <td>{{item.angle.value}}</td>
+                    <td>{{item.frequency.value}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </template>
 <script>
@@ -85,8 +87,8 @@
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
     #table-container{
-        margin-left:200px;
         table{
+            width:80%;
             border: 1px solid #ddd;
             th,td{
                 border: 1px solid #ddd;

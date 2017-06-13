@@ -1,8 +1,10 @@
 <template>
-    <div id="graph">
-        <div class="graph2">
-            <h3>实时功率对比图</h3>
-            <div id="chart2" :style="{width:'800px',height:'400px'}"></div>
+    <div>
+        <div id="graph">
+            <div class="graph2">
+                <h3>实时功率对比图</h3>
+                <div id="chart2" :style="{width:'800px',height:'400px'}"></div>
+            </div>
         </div>
     </div>
 </template>
@@ -114,9 +116,6 @@
 
 <style lang="stylus" rel="stylesheet/stylus">
     #graph{
-
-        margin-left:220px;
-        margin-top:100px;
         padding:10px 20px;
         div{
             h3{

@@ -1,7 +1,9 @@
 <template>
-    <div id="frame-container">
-        <h1>风机控制面板</h1>
-        <iframe id="con-frame" src=""></iframe>
+    <div>
+        <div id="frame-container">
+            <h1>风机控制面板</h1>
+            <iframe id="con-frame" src=""></iframe>
+        </div>
     </div>
 </template>
 
