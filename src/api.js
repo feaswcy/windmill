@@ -1,7 +1,8 @@
 
 const axios = require('axios');
-// const serverIp = "127.0.0.1";
-const serverIp = "10.3.59.44";
+const serverIp = "127.0.0.1";
+//需要改为webaccess安装的电脑IP
+// const serverIp = "10.3.64.238";
 const userName = "admin";
 const passWord = "";
 const projectname = "test";
@@ -19,7 +20,7 @@ function base64_encode(s){
 function makereq(url){
     let instance = axios.create({
         baseURL: baseUrl+url,
-        timeout: 5000,
+        timeout: 10000,
         headers: {'Authorization': 'Basic '+base64_encode(userName+":"+passWord)}
         // headers: {"Authorization":"Basic YWRtaW46"},
     });

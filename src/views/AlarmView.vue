@@ -85,6 +85,7 @@
             }
         }
         table{
+            width:90%;
             border: 1px solid #ddd;
             th{
                 text-align center

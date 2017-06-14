@@ -3,7 +3,7 @@
         <div id="graph">
             <div class="graph2">
                 <h3>实时功率对比图</h3>
-                <div id="chart2" :style="{width:'800px',height:'400px'}"></div>
+                <div id="chart2"></div>
             </div>
         </div>
     </div>
@@ -117,6 +117,10 @@
 <style lang="stylus" rel="stylesheet/stylus">
     #graph{
         padding:10px 20px;
+        #chart2{
+            width:100%;
+            height:400px;
+        }
         div{
             h3{
                 border-bottom 1px solid #ddd;

@@ -6,11 +6,10 @@
                     <i class="iconfont">&#xe8c9;</i>
                     <div>
                         <p>编号:<span class="num">{{item.name}}</span></p>
-                        <router-link to="/control"><p>状态:
+                        <p>状态:
                             <span v-if="item.status.value==1" class="on">启动</span>
                             <span v-else class="off">停机</span>
                         </p>
-                        </router-link>
                         <p>风速:<span>{{item.windspeed.value==''?500:item.windspeed.value}}</span></p>
                         <p>功率:<span>{{item.power1.value==''?800:item.power1.value}}</span></p>
                     </div>
@@ -82,6 +81,7 @@
                     float left;
                     margin-left 10px;
                     p{
+                        color:#000;
                         margin-bottom:5px;
                     }
                     span.off{

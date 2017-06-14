@@ -36,17 +36,17 @@
         },
         mounted (){
             let me = this;
-//            setInterval(function(){
-//                api.getinfo(function (data1, data2,data3,data4) {
-//                    console.log(data2);
-//                    me.info.date = data1.data.Date;
-//                    me.info.time = data1.data.Time;
-//                    me.info.ver = data2.data.Version;
-//                    me.info.user = data3.data.UserInfo.UserName;
-//                    me.info.clientnum = data4.data.LimitCount;
-//                });
-//
-//            },5000);
+            setInterval(function(){
+                api.getinfo(function (data1, data2,data3,data4) {
+                    console.log(data2);
+                    me.info.date = data1.data.Date;
+                    me.info.time = data1.data.Time;
+                    me.info.ver = data2.data.Version;
+                    me.info.user = data3.data.UserInfo.UserName;
+                    me.info.clientnum = data4.data.LimitCount;
+                });
+
+            },5000);
         }
     }
 </script>
