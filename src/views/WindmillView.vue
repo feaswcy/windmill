@@ -1,22 +1,21 @@
 <template>
-    <div id="windmill-list">
-        <ul>
-            <!--<router-link to="/windmill">-->
-            <!--<i class="iconfont">&#xe62c;</i>-->
-            <!--风场信息</router-link>-->
-
-            <li v-for="(item, index) in items" v-on:click="showdetail">
-                <i class="iconfont">&#xe8c9;</i>
-                <div>
-                    <p>编号:<span class="num">{{item.name}}</span></p>
-                    <p>状态:
-                        <span v-if="item.status.value==1" class="on">启动</span>
-                        <span v-else class="off">停机</span>
-                    <p>风速:<span>{{item.windspeed.value==''?500:item.windspeed.value}}</span></p>
-                    <p>功率:<span>{{item.power1.value==''?800:item.power1.value}}</span></p>
-                </div>
-            </li>
-        </ul>
+    <div>
+        <div id="windmill-list">
+            <ul>
+                <li v-for="(item, index) in items" >
+                    <i class="iconfont">&#xe8c9;</i>
+                    <div>
+                        <p>编号:<span class="num">{{item.name}}</span></p>
+                        <p>状态:
+                            <span v-if="item.status.value==1" class="on">启动</span>
+                            <span v-else class="off">停机</span>
+                        </p>
+                        <p>风速:<span>{{item.windspeed.value==''?500:item.windspeed.value}}</span></p>
+                        <p>功率:<span>{{item.power1.value==''?800:item.power1.value}}</span></p>
+                    </div>
+                </li>
+            </ul>
+        </div>
     </div>
 </template>
 
@@ -28,32 +27,32 @@
             return {
                 items:[
                     {
-                       num:'A01',
-                       status:"0",
+                       num:'',
+                       status:"",
                        windspeed:{
-                           value:"15.00"
+                           value:""
                        },
                        power1:{
-                           value:"15.00"
+                           value:""
                        }
                     }
                 ],
             }
         },
-
         methods: {
-            showdetail: function () {
-                alert(1);
-            }
+
         },
         mounted (){
             let me = this;
-            api.getvalue(1,function(finaldata){
-                console.log(finaldata)
-                me.items = finaldata
-            },function(error){
-                console.log("msg:\n"+error);
-            });
+
+            setInterval(function(){
+                api.getvalue(1,function(finaldata){
+                    console.log(finaldata)
+                    me.items = finaldata
+                },function(error){
+                    console.log("msg:\n"+error);
+                });
+            },5000);
 
         }
     }
@@ -62,7 +61,7 @@
 
 <style lang="stylus" rel="stylesheet/stylus">
     #windmill-list{
-        margin-left:150px
+
         ul{
             overflow hidden
             li{
@@ -82,6 +81,7 @@
                     float left;
                     margin-left 10px;
                     p{
+                        color:#000;
                         margin-bottom:5px;
                     }
                     span.off{
