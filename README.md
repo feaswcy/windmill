@@ -12,8 +12,8 @@
 4. 运行日志
 
 <p align="center">
-  <a href="https://vue-hn.now.sh" target="_blank">
-    <img width="973" alt="screen shot 2016-08-11 at 6 06 57 pm" src="https://github.com/feaswcy/windmill/blob/dev/doc/thumb.png" width="700px">
+  <a href="https://github.com/feaswcy/windmill/blob/master/doc/thumb.png" target="_blank">
+    <img width="973" alt="screen shot 2016-08-11 at 6 06 57 pm" src="https://github.com/feaswcy/windmill/blob/master/doc/thumb.png" width="700px">
     <br>
     图示
   </a>
