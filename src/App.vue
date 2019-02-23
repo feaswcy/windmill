@@ -2,12 +2,12 @@
   <div id="app">
     <header class="header">
       <nav class="inner">
-        <img class="logo" v-on:click="switchsidebar" src="~public/logo-48.png" alt="logo">
+        <img class="logo"  src="~public/logo-48.png" @click="toggleSidebar" alt="logo">
         <a href="https://github.com/feaswcy/windmill" target="_blank" class="help">源代码</a>
       </nav>
     </header>
     <section>
-        <aside data-status="" class="sidebar">
+        <aside data-status="" class="sidebar" v-if="showSideBar">
                 <div>
                     <router-link to="/system">
                         <i class="iconfont">&#xe600;</i>系统信息</router-link>
@@ -26,8 +26,8 @@
                 </div>
             </aside>
 
-        <transition name="slide" mode="out-in">
-            <router-view class="view"></router-view>
+        <transition name="slide" mode="out-in" >
+            <router-view class="view" v-class="{ 'left80': showSideBar}"></router-view>
         </transition>
     </section>
 
@@ -35,45 +35,20 @@
 </template>
 
 <script>
-    import $ from 'jquery'
-
     export default{
         data (){
             return {
                 expanded:'',
-            }
-        },
-        methods: {
-            switchsidebar:function(){
-
-                let  status= $('.sidebar').attr('data-status');
-
-                if(status=='open'){
-                    $('.sidebar').css('display','none').attr('data-status','close');
-                    $('.view').animate({"left":'0'},300);
-
-                }else{
-                    $('.sidebar').css('display','block').attr('data-status','open');
-                    $('.view').animate({"left":'78px'},300);
-
-                }
+                showSideBar: true,
             }
         },
         mounted (){
-            let width = $(window).width();
-            if(width<500){
-                $('.sidebar').css({
-                    'display':'none'
-                }).attr('data-status','close');
-
-                $('.view').css('left','0px');
-
-            }else{
-                $('.sidebar').css({
-                    'display':'block'
-                }).attr('data-status','open');
-
-                $('.view').css('left','80px');
+            let width = window.document.body.clientWidth
+            this.showSideBar = width > 500
+        },
+        methods:{
+            toggleSidebar(){
+                this.showSideBar = !this.showSideBar
             }
         }
     }
@@ -98,7 +73,12 @@
         color #34495e
         overflow-y scroll
     }
-
+    .left0{
+        left : 0
+    }
+    .left80{
+        left: 80px
+    }
 
     .iconfont{
         color:#fff;
